@@ -17,12 +17,17 @@ private:
         TITLE,
         TUTORIAL,
         OUTRO,
+        DEFAULT
     };
 
     void MainMenu();
     void DrawTitleScreen();
     void DrawGameOptions();
-    void GameOptions(enum Screen);
+    void DrawTutorial();
+    void GameOptions(Application::Screen screen);
+    char GetInputOptions(Application::Screen screen);
+
+    static void WriteLine(const std::string& text);
 };
 
 
