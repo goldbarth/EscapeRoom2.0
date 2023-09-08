@@ -10,7 +10,7 @@ Key::Key(Room* room) : room(room), xPos(0), yPos(0)
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Key::DrawPosition(char key)
+void Key::Initialize(char key)
 {
     SetRandomPosition();
     DrawKey(key);
@@ -18,7 +18,6 @@ void Key::DrawPosition(char key)
 
 void Key::DrawKey(char key)
 {
-    // Assuming you want console output similar to C#
     std::cout << "\x1B[33m"; // Set text color to dark yellow
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
                              { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetCursorPos

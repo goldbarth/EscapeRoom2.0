@@ -12,8 +12,6 @@
 #define ESCAPEROOM2_0_APPLICATION_H
 
 
-class Game;
-
 class Application
 {
 public:
@@ -26,7 +24,7 @@ private:
         DEFAULT
     };
 
-    Game* game = new Game();
+    //Game* game;
 
     void MainMenu();
     void EnterGame();
@@ -44,7 +42,6 @@ private:
 
     static void ExitApplication();
     static void WriteLine(const std::string& text);
-
 };
 
 

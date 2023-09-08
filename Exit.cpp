@@ -9,7 +9,7 @@ Exit::Exit(Room *room) : room(room), xPos(0), yPos(0)
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Exit::DrawPosition(char exit)
+void Exit::Initialize(char exit)
 {
     SetRandomPosition();
     DrawExit(exit);

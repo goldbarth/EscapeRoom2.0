@@ -2,40 +2,49 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <utility>
+#include "Player.h"
 #include "Game.h"
 #include "Room.h"
+#include "Exit.h"
+#include "Key.h"
+
+Game::Game() : player(), key(), exit(), room()
+{
+    // Allocate memory for these objects
+    this->room = new Room();
+    this->exit = new Exit(this->room);
+    this->key = new Key(this->room);
+    this->player = new Player(this, this->room, this->key);
+
+    gameIsRunning = true;
+}
 
 void Game::Start()
 {
-    system("cls");
-    Sleep(60);
+    ClearScreen();
     RoomSize roomSize = GetRoomSize();
+
+    ClearScreen();
+    std::cout << "You woke up in a almost dark room. Try to find the key and escape!" << std::endl;
     InitializeObjects(roomSize);
 }
 
 void Game::InitializeObjects(RoomSize roomSize)
 {
-    Room room(roomSize.width, roomSize.height);
-    Key key(&room);
-    Exit exit(&room);
-    Player player(this, &room, &key);
-    room.DrawRoom(charType.wall, charType.floor);
-    key.DrawPosition(charType.key);
-    exit.DrawPosition(charType.exit);
-    player.DrawStartPos(charType.player);
+    room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);
+    key->Initialize(charType.key);
+    exit->Initialize(charType.exit);
+    player->Initialize(charType.player);
 
     GameLoop();
-
-    Sleep(6000);
-    std::cin.get();
 }
 
 void Game::GameLoop()
 {
     while (gameIsRunning)
     {
-        Player player(this, nullptr, nullptr);
-        player.Move(charType.player);
+        player->Move(charType.player);
         CheckIfExitOpens();
         CheckIfPlayerEntersExit();
     }
@@ -43,8 +52,13 @@ void Game::GameLoop()
 
 void Game::OpenExit()
 {
-    Player player(this, nullptr, nullptr);
-    player.UpdatePos(player.GetXPos() + 1, player.GetYPos(), charType.exit);
+    player->UpdatePos(player->GetXPos() + 1, player->GetYPos(), charType.exit);
+}
+
+void Game::ClearScreen()
+{
+    system("cls");
+    Sleep(60);
 }
 
 void Game::CheckIfExitOpens()
@@ -59,6 +73,7 @@ void Game::CheckIfPlayerEntersExit()
         system("cls");
         for (int i = 0; i < 10; i++)
         {
+            // Print the text in purple
             std::cout << "\x1B[35m";
             std::cout << "YOU WON!";
             std::cout << "\x1B[0m";
@@ -71,15 +86,12 @@ void Game::CheckIfPlayerEntersExit()
 
 bool Game::IsPlayerOnExit()
 {
-    Player player(this, nullptr, nullptr);
-    Exit exit(nullptr);
-    return (player.GetXPos() + 1 == exit.GetXPos() && player.GetYPos() == exit.GetYPos());
+    return (player->GetXPos() + 1 == exit->GetXPos() && player->GetYPos() == exit->GetYPos());
 }
 
 bool Game::HasPlayerKeyCollected()
 {
-    Player player(this, nullptr, nullptr);
-    return !player.HasKey() && player.keyIsCollected;
+    return !player->HasKey() && player->keyIsCollected;
 }
 
 RoomSize Game::GetRoomSize()
@@ -112,6 +124,15 @@ char Game::GetExitChar()
 {
     return charType.exit;
 }
+
+Game::~Game()
+{
+    delete player;
+    delete room;
+    delete exit;
+    delete key;
+}
+
 
 
 

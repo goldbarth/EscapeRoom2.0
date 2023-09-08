@@ -24,7 +24,7 @@ public:
     void SetXPos(int pos);
     void SetYPos(int pos);
 
-    void DrawPosition(char exit);
+    void Initialize(char exit);
 
 private:
 

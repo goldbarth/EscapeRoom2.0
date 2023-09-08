@@ -13,7 +13,7 @@ Player::Player(Game *game, Room *room, Key *key) :game(game), room(room), key(ke
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Player::DrawStartPos(char player)
+void Player::Initialize(char player)
 {
     do
     {
@@ -33,11 +33,11 @@ void Player::Move(char player)
         switch (inputKey)
         {
             case 'w':
-                if (yPos > 1) yPos--;
+                if (yPos > 2) yPos--;
                 else PlayBeep();
                 break;
             case 's':
-                if (yPos < room->GetHeight() - 1) yPos++;
+                if (yPos < room->GetHeight() + 1) yPos++;
                 else PlayBeep();
                 break;
             case 'a':
@@ -45,7 +45,7 @@ void Player::Move(char player)
                 else PlayBeep();
                 break;
             case 'd':
-                if (xPos < room->GetWidth() - 1) xPos++;
+                if (xPos < room->GetWidth()) xPos++;
                 else PlayBeep();
                 break;
             default:
@@ -83,26 +83,35 @@ void Player::UpdatePos(int x, int y, char symbol)
 
 void Player::DrawNewPos(int x, int y, char symbol)
 {
-    std::cout << "\x1B[32m";
-    SetCursorPos(x, y);
-    std::cout << symbol;
-    std::cout << "\x1B[0m";
+    if (symbol == game->GetWallChar())
+    {
+        // Print the text in black
+        std::cout << "\x1B[30m";
+        SetCursorPos(x, y);
+        std::cout << symbol;
+        std::cout << "\x1B[0m";
+    }
+    else
+    {
+        std::cout << "\x1B[32m";
+        SetCursorPos(x, y);
+        std::cout << symbol;
+        std::cout << "\x1B[0m";
+    }
 }
 
 void Player::RepaintEnvironment(int x, int y)
 {
     RepaintWall(x, y);
-    RepaintExit(x, y);
+    //RepaintExit(x, y);
 }
 
 void Player::RepaintWall(int x, int y)
 {
     if (x != room->GetWidth() || y == 0 || game->IsPlayerOnExit()) return;
 
-    std::cout << "\x1B[37m";
     SetCursorPos(x, y);
-    std::cout << game->GetFloorChar();
-    std::cout << "\x1B[0m";
+    std::cout << game->GetWallChar();
 }
 
 void Player::RepaintExit(int x, int y)

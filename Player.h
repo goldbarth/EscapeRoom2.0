@@ -5,10 +5,9 @@
 #ifndef ESCAPEROOM2_0_PLAYER_H
 #define ESCAPEROOM2_0_PLAYER_H
 
-
-class Game;
-class Room;
-class Key;
+#include "Game.h"
+#include "Room.h"
+#include "Key.h"
 
 class Player
 {
@@ -17,7 +16,7 @@ public:
 
     Player(Game* game, Room* room, Key* key);
 
-    void DrawStartPos(char player);
+    void Initialize(char player);
     void UpdatePos(int x, int y, char symbol);
 
     void Move(char player);

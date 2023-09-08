@@ -151,6 +151,7 @@ void Application::EnterTutorial()
 
 void Application::EnterGame()
 {
+    Game *game = new Game();
     game->Start();
 }
 

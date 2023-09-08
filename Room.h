@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <vector>
+#include "Game.h"
 
 #ifndef ESCAPEROOM2_0_ROOM_H
 #define ESCAPEROOM2_0_ROOM_H
@@ -12,9 +13,9 @@
 class Room
 {
 public:
-    Room(int width, int height);
+    //Room(int width, int height);
 
-    void DrawRoom(char wall, char floor);
+    void Initialize(int width, int height, char wall, char floor);
 
     int GetWidth();
     int GetHeight();
@@ -22,8 +23,12 @@ public:
 private:
     int width;
     int height;
+
     // Using a 2d vector to represent the room. Instead of a 2d array.
     std::vector<std::vector<int>> room;
+
+    void SetRoomSize(int width, int height);
+    void DrawRoom(char wall, char floor);
 };
 
 

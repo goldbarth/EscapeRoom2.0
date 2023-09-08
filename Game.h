@@ -3,10 +3,6 @@
 //
 
 #include <iostream>
-#include "Player.h"
-#include "Exit.h"
-#include "Room.h"
-#include "Key.h"
 
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
@@ -26,34 +22,47 @@ struct CharType
     char player = '@';
 };
 
+class Player;
+class Room;
+class Exit;
+class Key;
+
 class Game
 {
 public:
+    explicit Game();
+    // Default destructor
+    ~Game();
+
     void Start();
-    char GetFloorChar();
     bool IsPlayerOnExit();
 
+    char GetFloorChar();
     char GetWallChar();
-
     char GetExitChar();
 
 private:
     CharType charType;
 
-    static RoomSize GetRoomSize();
+    bool gameIsRunning = true;
+
+    Player* player;
+    Room* room;
+    Exit* exit;
+    Key* key;
+
     void InitializeObjects(RoomSize roomSize);
 
     void GameLoop();
-
     void OpenExit();
+    void CheckIfExitOpens();
+    void CheckIfPlayerEntersExit();
 
     bool HasPlayerKeyCollected();
 
-    bool gameIsRunning = true;
+    RoomSize GetRoomSize();
 
-    void CheckIfExitOpens();
-
-    void CheckIfPlayerEntersExit();
+    static void ClearScreen();
 };
 
 
