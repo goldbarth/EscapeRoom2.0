@@ -2,13 +2,7 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <iostream>
-//#include <ncurses.h>
-#include <conio.h>
-#include <cstdlib>
-#include "Windows.h"
 #include "Application.h"
-
 
 using namespace std;
 
@@ -21,7 +15,7 @@ void Application::Run()
 void Application::MainMenu()
 {
     DrawTitleScreen();
-    DrawGameOptions();
+    DrawTitleOptions();
     GameOptions(TITLE);
 }
 
@@ -47,11 +41,39 @@ void Application::DrawTitleScreen()
     WriteLine("");
 }
 
+void Application::DrawOutroScreen()
+{
+    WriteLine("");
+    WriteLine("   ###### ******YOU ESCAPED THE***** * *  ");
+    WriteLine("   ######                           *     ");
+    WriteLine("   ##     #### #### #### #### ####     *  ");
+    WriteLine("   ####   #    #    ## # ## # #           ");
+    WriteLine("   ##     #### #    #### #### ###    *  * ");
+    WriteLine("   ######    # #    ## # ##   #           ");
+    WriteLine("   ###### #### #### ## # ##   ####     *  ");
+    WriteLine("                                    *     ");
+    WriteLine("   ############  =======================  ");
+    WriteLine("   #          #   ######                  ");
+    WriteLine("   #         ...@ ##   # #### #### ##   # ");
+    WriteLine("   #          #   #####  #  # #  # ### ## ");
+    WriteLine("   #          #   ##   # #  # #  # ## # # ");
+    WriteLine("   #          #   ##   # #  # #  # ##   # ");
+    WriteLine("   ############   ##   # #### #### ##   # ");
+    WriteLine("");
+    WriteLine("");
+}
+
+void Application::DrawTitleOptions()
+{
+    WriteLine("1. Start Game");
+    WriteLine("2. Exit");
+    WriteLine("3. Tutorial");
+}
+
 void Application::DrawGameOptions()
 {
     WriteLine("1. Start Game");
-    WriteLine("2. Tutorial");
-    WriteLine("3. Exit");
+    WriteLine("2. Exit");
 }
 
 void Application::DrawTutorial()
@@ -63,12 +85,13 @@ void Application::DrawTutorial()
     WriteLine("        ******** TUTORIAL ********");
     WriteLine("\n   At the start, the size of the Escape Room is determined.");
     WriteLine("   Height and width are set by input.");
-    WriteLine("\n\n   The character moves by pressing the arrow keys: ^, v, <, >.");
-    WriteLine("\n\n   The player is dropped at a random position in the Escape Room.");
+    WriteLine("\n   The character moves by pressing the arrow keys: ^, v, <, >.");
+    WriteLine("\n   The player is dropped at a random position in the Escape Room.");
     WriteLine("   The room has a locked door that can be opened with a key.");
     WriteLine("   The key can be found somewhere in the room.");
     WriteLine("   When collected, the door opens automatically.");
     WriteLine("\n\n   The game is won when the player goes through the door.");
+    WriteLine("");
 }
 
 void Application::GameOptions(Application::Screen screen)
@@ -77,20 +100,18 @@ void Application::GameOptions(Application::Screen screen)
     switch(inputKey)
     {
         case '1':
-            cout << "Start Game" << endl;
+            EnterGame();
             break;
         case '2':
-            DrawTutorial();
+            ExitApplication();
             break;
         case '3':
-            cout << "Exit" << endl;
+            EnterTutorial();
             break;
         default:
-            cerr << "Invalid input. Something went wrong at the." << endl;
+            cerr << "Invalid input. Something went wrong at GameOptions." << endl;
             break;
     }
-
-
 }
 
 char Application::GetInputOptions(Application::Screen screen)
@@ -121,8 +142,25 @@ char Application::GetInputOptions(Application::Screen screen)
     return inputKey;
 }
 
+void Application::EnterTutorial()
+{
+    DrawTutorial();
+    DrawGameOptions();
+    GameOptions(DEFAULT);
+}
+
+void Application::EnterGame()
+{
+    game->Start();
+}
+
 void Application::WriteLine(const string& text)
 {
     cout << text << endl;
+}
+
+void Application::ExitApplication()
+{
+    exit(0);
 }
 
