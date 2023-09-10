@@ -13,12 +13,10 @@
 class Room
 {
 public:
-    //Room(int width, int height);
-
-    void Initialize(int width, int height, char wall, char floor);
-
     int GetWidth();
     int GetHeight();
+
+    void Initialize(int width, int height, char wall, char floor);
 
 private:
     int width;
@@ -30,6 +28,5 @@ private:
     void SetRoomSize(int width, int height);
     void DrawRoom(char wall, char floor);
 };
-
 
 #endif //ESCAPEROOM2_0_ROOM_H

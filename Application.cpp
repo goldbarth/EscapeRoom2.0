@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 void Application::Run()
 {
      MainMenu();
@@ -151,8 +150,9 @@ void Application::EnterTutorial()
 
 void Application::EnterGame()
 {
-    Game *game = new Game();
+    Game* game = new Game();
     game->Start();
+    delete game;
 }
 
 void Application::WriteLine(const string& text)

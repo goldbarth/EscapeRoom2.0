@@ -17,19 +17,17 @@ void Exit::Initialize(char exit)
 
 void Exit::DrawExit(char exit)
 {
-    std::cout << "\x1B[31m"; // Set text color to dark red
+    std::cout << "\x1B[35m";
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
                              { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetCursorPos
     std::cout << exit;
-    std::cout << "\x1B[0m"; // Reset text color
+    std::cout << "\x1B[0m";
 }
 
 void Exit::SetRandomPosition()
 {
-    int randomPositionY = rand() % (room->GetHeight() - 1) + 2;
-
     xPos = room->GetWidth() + 1;
-    yPos = randomPositionY;
+    yPos = rand() % (room->GetHeight() - 1) + 2;
 }
 
 int Exit::GetXPos()
@@ -40,16 +38,6 @@ int Exit::GetXPos()
 int Exit::GetYPos()
 {
     return yPos;
-}
-
-void Exit::SetXPos(int pos)
-{
-    this->xPos = pos;
-}
-
-void Exit::SetYPos(int pos)
-{
-    this->yPos = pos;
 }
 
 

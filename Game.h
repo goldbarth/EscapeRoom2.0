@@ -31,20 +31,18 @@ class Game
 {
 public:
     explicit Game();
-    // Default destructor
     ~Game();
+
+    char GetFloorChar();
 
     void Start();
     bool IsPlayerOnExit();
-
-    char GetFloorChar();
-    char GetWallChar();
-    char GetExitChar();
 
 private:
     CharType charType;
 
     bool gameIsRunning = true;
+    bool isExitOpen = false;
 
     Player* player;
     Room* room;
@@ -63,6 +61,8 @@ private:
     RoomSize GetRoomSize();
 
     static void ClearScreen();
+
+    void ShowConsoleCursor(bool showFlag);
 };
 
 

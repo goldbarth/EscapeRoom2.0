@@ -4,12 +4,6 @@
 
 #include "Room.h"
 
-//Room::Room(int width, int height): width(width), height(height)
-//{
-//    // Create a 2d vector with the given width and height. Fill it with 0's.
-//    room.resize(width, std::vector<int>(height, 0));
-//}
-
 void Room::Initialize(int width, int height, char wall, char floor)
 {
     SetRoomSize(width, height);

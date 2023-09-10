@@ -21,20 +21,15 @@ public:
     int GetXPos();
     int GetYPos();
 
-    void SetXPos(int pos);
-    void SetYPos(int pos);
-
     void Initialize(char exit);
+    void DrawExit(char exit);
 
 private:
-
+    Room* room;
     int xPos;
     int yPos;
-    Room* room;
 
-    void DrawExit(char exit);
     void SetRandomPosition();
 };
-
 
 #endif //ESCAPEROOM2_0_EXIT_H

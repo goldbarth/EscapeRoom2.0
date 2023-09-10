@@ -9,6 +9,14 @@
 #include "Room.h"
 #include "Key.h"
 
+struct ArrowKey
+{
+    char up = 'w';
+    char down = 's';
+    char left = 'a';
+    char right = 'd';
+};
+
 class Player
 {
 public:
@@ -18,38 +26,31 @@ public:
 
     void Initialize(char player);
     void UpdatePos(int x, int y, char symbol);
-
     void Move(char player);
 
     bool HasKey();
 
-    void SetXPos(int pos);
-    void SetYPos(int pos);
     int GetXPos();
     int GetYPos();
 
-
 private:
-    int xPos;
-    int yPos;
-
     Game* game;
     Room* room;
     Key* key;
 
+    int xPos;
+    int yPos;
+
+    void SetCursorPos(int x, int y);
+    void PlayBeep();
+    bool IsNewPosWall(int x, int y);
+
     void GetRandomStartPos();
     void SetPos(char player);
     void DrawNewPos(int x, int y, char symbol);
-    void SetCursorPos(int x, int y);
 
-    void RepaintEnvironment(int x, int y);
-    void RepaintWall(int x, int y);
-    void RepaintExit(int x, int y);
-    void PlayBeep();
-
-    bool ThisPosIsKeyPos();
-    bool IsNewPosWall(int x, int y);
+    bool IsThisPosKeyPos();
+    bool IsNotAtRightWall(int x, int y);
 };
-
 
 #endif //ESCAPEROOM2_0_PLAYER_H

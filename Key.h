@@ -21,9 +21,6 @@ public:
     int GetXPos();
     int GetYPos();
 
-    void SetXPos(int pos);
-    void SetYPos(int pos);
-
     void Initialize(char key);
 
 private:
@@ -34,7 +31,5 @@ private:
     void DrawKey(char key);
     void SetRandomPosition();
 };
-
-
 
 #endif //ESCAPEROOM2_0_KEY_H

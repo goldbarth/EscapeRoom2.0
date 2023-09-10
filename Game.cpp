@@ -2,7 +2,6 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <utility>
 #include "Player.h"
 #include "Game.h"
 #include "Room.h"
@@ -13,8 +12,8 @@ Game::Game() : player(), key(), exit(), room()
 {
     // Allocate memory for these objects
     this->room = new Room();
-    this->exit = new Exit(this->room);
     this->key = new Key(this->room);
+    this->exit = new Exit(this->room);
     this->player = new Player(this, this->room, this->key);
 
     gameIsRunning = true;
@@ -26,7 +25,7 @@ void Game::Start()
     RoomSize roomSize = GetRoomSize();
 
     ClearScreen();
-    std::cout << "You woke up in a almost dark room. Try to find the key and escape!" << std::endl;
+    ShowConsoleCursor(false);
     InitializeObjects(roomSize);
 }
 
@@ -52,7 +51,11 @@ void Game::GameLoop()
 
 void Game::OpenExit()
 {
-    player->UpdatePos(player->GetXPos() + 1, player->GetYPos(), charType.exit);
+    for (int i = 0; i <2; ++i)
+        Beep(1000, 100);
+
+    exit->DrawExit(charType.floor);
+    isExitOpen = true;
 }
 
 void Game::ClearScreen()
@@ -63,25 +66,47 @@ void Game::ClearScreen()
 
 void Game::CheckIfExitOpens()
 {
-    if (HasPlayerKeyCollected()) OpenExit();
+    if (HasPlayerKeyCollected() && !isExitOpen) OpenExit();
 }
 
 void Game::CheckIfPlayerEntersExit()
 {
     if (IsPlayerOnExit() && HasPlayerKeyCollected())
     {
+        for (int i = 0; i < 3; ++i)
+            Beep(50, 100);
+
+        Sleep(300);
         system("cls");
-        for (int i = 0; i < 10; i++)
+        for (int i = 31; i < 37; i++)
         {
-            // Print the text in purple
-            std::cout << "\x1B[35m";
-            std::cout << "YOU WON!";
+            Beep(i * 5, 100);
+            std::cout << "\x1B[" << i << "m";
+            std::cout << "You escaped! Congratulations!";
             std::cout << "\x1B[0m";
-            Sleep(100);
+            Sleep(300);
+            ClearScreen();
         }
 
+        std::cout << "\x1B[35m";
+        std::cout << "You escaped! Congratulations!";
+        std::cout << "\x1B[0m";
+
+        ShowConsoleCursor(true);
         gameIsRunning = false;
     }
+}
+
+// https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
+void Game::ShowConsoleCursor(bool showFlag)
+{
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    GetConsoleCursorInfo(out, &cursorInfo);
+    cursorInfo.bVisible = showFlag;
+    SetConsoleCursorInfo(out, &cursorInfo);
 }
 
 bool Game::IsPlayerOnExit()
@@ -91,7 +116,7 @@ bool Game::IsPlayerOnExit()
 
 bool Game::HasPlayerKeyCollected()
 {
-    return !player->HasKey() && player->keyIsCollected;
+    return player->HasKey();
 }
 
 RoomSize Game::GetRoomSize()
@@ -113,16 +138,6 @@ RoomSize Game::GetRoomSize()
 char Game::GetFloorChar()
 {
     return charType.floor;
-}
-
-char Game::GetWallChar()
-{
-    return charType.wall;
-}
-
-char Game::GetExitChar()
-{
-    return charType.exit;
 }
 
 Game::~Game()

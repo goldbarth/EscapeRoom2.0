@@ -41,13 +41,3 @@ int Key::GetYPos()
     return yPos;
 }
 
-void Key::SetXPos(int pos)
-{
-    this->xPos = pos;
-}
-
-void Key::SetYPos(int pos)
-{
-    this->yPos = pos;
-}
-
