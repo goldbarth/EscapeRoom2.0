@@ -18,11 +18,11 @@ class Exit
 public:
     explicit Exit(Room* room);
 
-    int GetXPos();
-    int GetYPos();
+    int GetXPos() const;
+    int GetYPos() const;
 
     void Initialize(char exit);
-    void DrawExit(char exit);
+    void DrawExit(char exit) const;
 
 private:
     Room* room;

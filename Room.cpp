@@ -42,12 +42,12 @@ void Room::DrawRoom(char wall, char floor)
 }
 
 
-int Room::GetWidth()
+int Room::GetWidth() const
 {
     return width;
 }
 
-int Room::GetHeight()
+int Room::GetHeight() const
 {
     return height;
 }

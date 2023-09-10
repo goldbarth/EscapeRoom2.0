@@ -20,7 +20,7 @@ void Key::DrawKey(char key)
 {
     std::cout << "\x1B[33m"; // Set text color to dark yellow
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
-                             { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetCursorPos
+                             { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetConsoleCursorPos
     std::cout << key;
     std::cout << "\x1B[0m"; // Reset text color
 }
@@ -31,12 +31,12 @@ void Key::SetRandomPosition()
     yPos = std::rand() % (room->GetHeight() - 1) + 1;
 }
 
-int Key::GetXPos()
+int Key::GetXPos() const
 {
     return xPos;
 }
 
-int Key::GetYPos()
+int Key::GetYPos() const
 {
     return yPos;
 }

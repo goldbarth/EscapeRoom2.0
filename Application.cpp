@@ -4,8 +4,6 @@
 
 #include "Application.h"
 
-using namespace std;
-
 void Application::Run()
 {
      MainMenu();
@@ -20,77 +18,77 @@ void Application::MainMenu()
 
 void Application::DrawTitleScreen()
 {
-    WriteLine("");
-    WriteLine("   ###### ************************** * *  ");
-    WriteLine("   ######                           *     ");
-    WriteLine("   ##     #### #### #### #### ####     *  ");
-    WriteLine("   ####   #    #    ## # ## # #           ");
-    WriteLine("   ##     #### #    #### #### ###    *  * ");
-    WriteLine("   ######    # #    ## # ##   #           ");
-    WriteLine("   ###### #### #### ## # ##   ####     *  ");
-    WriteLine("                                    *     ");
-    WriteLine("   ############  =======================  ");
-    WriteLine("   #          #   ######                  ");
-    WriteLine("   #  @       ?   ##   # #### #### ##   # ");
-    WriteLine("   #          #   #####  #  # #  # ### ## ");
-    WriteLine("   #     $    #   ##   # #  # #  # ## # # ");
-    WriteLine("   #          #   ##   # #  # #  # ##   # ");
-    WriteLine("   ############   ##   # #### #### ##   # ");
-    WriteLine("");
-    WriteLine("");
+    Hlpr::WriteLine("");
+    Hlpr::WriteLine("   ###### ************************** * *  ");
+    Hlpr::WriteLine("   ######                           *     ");
+    Hlpr::WriteLine("   ##     #### #### #### #### ####     *  ");
+    Hlpr::WriteLine("   ####   #    #    ## # ## # #           ");
+    Hlpr::WriteLine("   ##     #### #    #### #### ###    *  * ");
+    Hlpr::WriteLine("   ######    # #    ## # ##   #           ");
+    Hlpr::WriteLine("   ###### #### #### ## # ##   ####     *  ");
+    Hlpr::WriteLine("                                    *     ");
+    Hlpr::WriteLine("   ############  =======================  ");
+    Hlpr::WriteLine("   #          #   ######                  ");
+    Hlpr::WriteLine("   #  @       ?   ##   # #### #### ##   # ");
+    Hlpr::WriteLine("   #          #   #####  #  # #  # ### ## ");
+    Hlpr::WriteLine("   #     $    #   ##   # #  # #  # ## # # ");
+    Hlpr::WriteLine("   #          #   ##   # #  # #  # ##   # ");
+    Hlpr::WriteLine("   ############   ##   # #### #### ##   # ");
+    Hlpr::WriteLine("");
+    Hlpr::WriteLine("");
 }
 
 void Application::DrawOutroScreen()
 {
-    WriteLine("");
-    WriteLine("   ###### ******YOU ESCAPED THE***** * *  ");
-    WriteLine("   ######                           *     ");
-    WriteLine("   ##     #### #### #### #### ####     *  ");
-    WriteLine("   ####   #    #    ## # ## # #           ");
-    WriteLine("   ##     #### #    #### #### ###    *  * ");
-    WriteLine("   ######    # #    ## # ##   #           ");
-    WriteLine("   ###### #### #### ## # ##   ####     *  ");
-    WriteLine("                                    *     ");
-    WriteLine("   ############  =======================  ");
-    WriteLine("   #          #   ######                  ");
-    WriteLine("   #         ...@ ##   # #### #### ##   # ");
-    WriteLine("   #          #   #####  #  # #  # ### ## ");
-    WriteLine("   #          #   ##   # #  # #  # ## # # ");
-    WriteLine("   #          #   ##   # #  # #  # ##   # ");
-    WriteLine("   ############   ##   # #### #### ##   # ");
-    WriteLine("");
-    WriteLine("");
+    Hlpr::ClearScreen();
+    Hlpr::WriteLine("");
+    Hlpr::WriteLine("   ###### ******YOU ESCAPED THE***** * *  ");
+    Hlpr::WriteLine("   ######                           *     ");
+    Hlpr::WriteLine("   ##     #### #### #### #### ####     *  ");
+    Hlpr::WriteLine("   ####   #    #    ## # ## # #           ");
+    Hlpr::WriteLine("   ##     #### #    #### #### ###    *  * ");
+    Hlpr::WriteLine("   ######    # #    ## # ##   #           ");
+    Hlpr::WriteLine("   ###### #### #### ## # ##   ####     *  ");
+    Hlpr::WriteLine("                                    *     ");
+    Hlpr::WriteLine("   ############  =======================  ");
+    Hlpr::WriteLine("   #          #   ######                  ");
+    Hlpr::WriteLine("   #         ...@ ##   # #### #### ##   # ");
+    Hlpr::WriteLine("   #          #   #####  #  # #  # ### ## ");
+    Hlpr::WriteLine("   #          #   ##   # #  # #  # ## # # ");
+    Hlpr::WriteLine("   #          #   ##   # #  # #  # ##   # ");
+    Hlpr::WriteLine("   ############   ##   # #### #### ##   # ");
+    Hlpr::WriteLine("");
+    Hlpr::WriteLine("");
 }
 
 void Application::DrawTitleOptions()
 {
-    WriteLine("1. Start Game");
-    WriteLine("2. Exit");
-    WriteLine("3. Tutorial");
+    Hlpr::WriteLine("1. Start Game");
+    Hlpr::WriteLine("2. Exit");
+    Hlpr::WriteLine("3. Tutorial");
 }
 
 void Application::DrawGameOptions()
 {
-    WriteLine("1. Start Game");
-    WriteLine("2. Exit");
+    Hlpr::WriteLine("1. Start Game");
+    Hlpr::WriteLine("2. Exit");
 }
 
 void Application::DrawTutorial()
 {
-    system("cls");
-    Sleep(60);
-    WriteLine("\n\n       ******** ESCAPE ROOM ********");
-    WriteLine("        --------------------------");
-    WriteLine("        ******** TUTORIAL ********");
-    WriteLine("\n   At the start, the size of the Escape Room is determined.");
-    WriteLine("   Height and width are set by input.");
-    WriteLine("\n   The character moves by pressing the arrow keys: ^, v, <, >.");
-    WriteLine("\n   The player is dropped at a random position in the Escape Room.");
-    WriteLine("   The room has a locked door that can be opened with a key.");
-    WriteLine("   The key can be found somewhere in the room.");
-    WriteLine("   When collected, the door opens automatically.");
-    WriteLine("\n\n   The game is won when the player goes through the door.");
-    WriteLine("");
+    Hlpr::ClearScreen();
+    Hlpr::WriteLine("\n\n       ******** ESCAPE ROOM ********");
+    Hlpr::WriteLine("        --------------------------");
+    Hlpr::WriteLine("        ******** TUTORIAL ********");
+    Hlpr::WriteLine("\n   At the start, the size of the Escape Room is determined.");
+    Hlpr::WriteLine("   Height and width are set by input.");
+    Hlpr::WriteLine("\n   The character moves by pressing the arrow keys: ^, v, <, >.");
+    Hlpr::WriteLine("\n   The player is dropped at a random position in the Escape Room.");
+    Hlpr::WriteLine("   The room has a locked door that can be opened with a key.");
+    Hlpr::WriteLine("   The key can be found somewhere in the room.");
+    Hlpr::WriteLine("   When collected, the door opens automatically.");
+    Hlpr::WriteLine("\n\n   The game is won when the player goes through the door.");
+    Hlpr::WriteLine("");
 }
 
 void Application::GameOptions(Application::Screen screen)
@@ -108,7 +106,7 @@ void Application::GameOptions(Application::Screen screen)
             EnterTutorial();
             break;
         default:
-            cerr << "Invalid input. Something went wrong at GameOptions." << endl;
+            std::cerr << "Invalid input. Something went wrong at GameOptions." << std::endl;
             break;
     }
 }
@@ -120,8 +118,7 @@ char Application::GetInputOptions(Application::Screen screen)
 
     do
     {
-        cin >> inputKey;
-        // inputKey = (char)_getch(); // Maybe later with INPUT_RECORD, DWORD, PeekConsoleInput, etc.
+        std::cin >> inputKey;
 
         switch (screen)
         {
@@ -133,8 +130,8 @@ char Application::GetInputOptions(Application::Screen screen)
                 break;
         }
 
-        if(!valid) WriteLine("Invalid input. Please try again.\n");
-        else WriteLine("");
+        if(!valid) Hlpr::WriteLine("Invalid input. Please try again.\n");
+        else Hlpr::WriteLine("");
 
     } while(!valid);
 
@@ -148,16 +145,18 @@ void Application::EnterTutorial()
     GameOptions(DEFAULT);
 }
 
-void Application::EnterGame()
+void Application::DrawOutro()
 {
-    Game* game = new Game();
-    game->Start();
-    delete game;
+    DrawOutroScreen();
+    DrawGameOptions();
+    GameOptions(DEFAULT);
 }
 
-void Application::WriteLine(const string& text)
+void Application::EnterGame()
 {
-    cout << text << endl;
+    auto* game = new Game();
+    game->Start();
+    delete game;
 }
 
 void Application::ExitApplication()

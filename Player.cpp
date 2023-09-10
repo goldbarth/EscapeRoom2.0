@@ -2,10 +2,6 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <conio.h>
-#include "Game.h"
-#include "Room.h"
-#include "Key.h"
 #include "Player.h"
 
 Player::Player(Game* game, Room* room, Key* key) :game(game), room(room), key(key), xPos(0), yPos(0)
@@ -60,21 +56,6 @@ void Player::Move(char player)
     }
 }
 
-
-void Player::GetRandomStartPos()
-{
-    xPos = rand() % (room->GetWidth() - 1) + 1;
-    yPos = rand() % (room->GetHeight() - 1) + 1;
-}
-
-void Player::SetPos(char player)
-{
-    std::cout << "\x1B[32m"; // Set text color to dark green
-    SetCursorPos(xPos, yPos); // Set cursor position using SetCursorPos
-    std::cout << player;
-    std::cout << "\x1B[0m"; // Reset text color
-}
-
 void Player::UpdatePos(int x, int y, char symbol)
 {
     if (IsNewPosWall(x, y) || !IsNotAtRightWall(x, y)) return;
@@ -84,12 +65,6 @@ void Player::UpdatePos(int x, int y, char symbol)
 bool Player::IsNotAtRightWall(int x, int y)
 {
     return (x != room->GetWidth() + 1 || y == 0 || game->IsPlayerOnExit());
-}
-
-void Player::SetCursorPos(int x, int y)
-{
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
-                             { static_cast<SHORT>(x), static_cast<SHORT>(y) });
 }
 
 void Player::PlayBeep()
@@ -117,12 +92,23 @@ bool Player::HasKey()
     return false;
 }
 
-int Player::GetXPos()
+void Player::GetRandomStartPos()
+{
+    xPos = rand() % (room->GetWidth() - 1) + 1;
+    yPos = rand() % (room->GetHeight() - 1) + 1;
+}
+
+void Player::SetPos(char player)
+{
+    Hlpr::WriteAt(xPos, yPos, player, color.light_green());
+}
+
+int Player::GetXPos() const
 {
     return xPos;
 }
 
-int Player::GetYPos()
+int Player::GetYPos() const
 {
     return yPos;
 }

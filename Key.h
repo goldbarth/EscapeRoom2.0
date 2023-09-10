@@ -18,8 +18,8 @@ class Key
 public:
     explicit Key(Room* room);
 
-    int GetXPos();
-    int GetYPos();
+    int GetXPos() const;
+    int GetYPos() const;
 
     void Initialize(char key);
 

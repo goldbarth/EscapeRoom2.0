@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include "Hlpr.h"
 
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
@@ -33,12 +34,13 @@ public:
     explicit Game();
     ~Game();
 
-    char GetFloorChar();
+    char GetFloorChar() const;
 
     void Start();
     bool IsPlayerOnExit();
 
 private:
+    ConsoleColor color;
     CharType charType;
 
     bool gameIsRunning = true;
@@ -55,14 +57,15 @@ private:
     void OpenExit();
     void CheckIfExitOpens();
     void CheckIfPlayerEntersExit();
+    void PlayExitAnimation();
+    void DrawGameEndText();
+
+    static void DrawWinScreen();
+    static void ShowConsoleCursor(bool showFlag);
 
     bool HasPlayerKeyCollected();
 
-    RoomSize GetRoomSize();
-
-    static void ClearScreen();
-
-    void ShowConsoleCursor(bool showFlag);
+    static RoomSize GetRoomSize();
 };
 
 

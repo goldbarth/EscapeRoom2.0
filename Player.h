@@ -5,6 +5,12 @@
 #ifndef ESCAPEROOM2_0_PLAYER_H
 #define ESCAPEROOM2_0_PLAYER_H
 
+#include <conio.h>
+#include "Player.h"
+#include "Game.h"
+#include "Room.h"
+#include "Hlpr.h"
+#include "Key.h"
 #include "Game.h"
 #include "Room.h"
 #include "Key.h"
@@ -30,10 +36,11 @@ public:
 
     bool HasKey();
 
-    int GetXPos();
-    int GetYPos();
+    int GetXPos() const;
+    int GetYPos() const;
 
 private:
+    ConsoleColor color;
     Game* game;
     Room* room;
     Key* key;
@@ -41,13 +48,11 @@ private:
     int xPos;
     int yPos;
 
-    void SetCursorPos(int x, int y);
-    void PlayBeep();
-    bool IsNewPosWall(int x, int y);
+    static void PlayBeep();
+    static bool IsNewPosWall(int x, int y);
 
     void GetRandomStartPos();
     void SetPos(char player);
-    void DrawNewPos(int x, int y, char symbol);
 
     bool IsThisPosKeyPos();
     bool IsNotAtRightWall(int x, int y);

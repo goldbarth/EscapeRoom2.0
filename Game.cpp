@@ -2,11 +2,13 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include "Application.h"
 #include "Player.h"
 #include "Game.h"
 #include "Room.h"
 #include "Exit.h"
 #include "Key.h"
+
 
 Game::Game() : player(), key(), exit(), room()
 {
@@ -21,10 +23,10 @@ Game::Game() : player(), key(), exit(), room()
 
 void Game::Start()
 {
-    ClearScreen();
+    Hlpr::ClearScreen();
     RoomSize roomSize = GetRoomSize();
 
-    ClearScreen();
+    Hlpr::ClearScreen();
     ShowConsoleCursor(false);
     InitializeObjects(roomSize);
 }
@@ -58,12 +60,6 @@ void Game::OpenExit()
     isExitOpen = true;
 }
 
-void Game::ClearScreen()
-{
-    system("cls");
-    Sleep(60);
-}
-
 void Game::CheckIfExitOpens()
 {
     if (HasPlayerKeyCollected() && !isExitOpen) OpenExit();
@@ -76,25 +72,40 @@ void Game::CheckIfPlayerEntersExit()
         for (int i = 0; i < 3; ++i)
             Beep(50, 100);
 
-        Sleep(300);
-        system("cls");
-        for (int i = 31; i < 37; i++)
-        {
-            Beep(i * 5, 100);
-            std::cout << "\x1B[" << i << "m";
-            std::cout << "You escaped! Congratulations!";
-            std::cout << "\x1B[0m";
-            Sleep(300);
-            ClearScreen();
-        }
-
-        std::cout << "\x1B[35m";
-        std::cout << "You escaped! Congratulations!";
-        std::cout << "\x1B[0m";
+        PlayExitAnimation();
+        DrawGameEndText();
+        DrawWinScreen();
 
         ShowConsoleCursor(true);
         gameIsRunning = false;
     }
+}
+
+void Game::PlayExitAnimation()
+{
+    std::string result = "..." + std::string(1, charType.player);
+    Hlpr::WriteAt(player->GetXPos(), player->GetYPos(), result, color.light_green());
+}
+
+void Game::DrawGameEndText()
+{
+    // Set the text compared to the room size in the middle of the room.
+    SetCursorPos(0, 0);
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 6, "     CONGRATULATIONS!", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 5, " YOU ESCAPED THE DARKNESS.", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 4, "  NOW YOU WILL ENTER THE", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 3, "        UNKNOWN.", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 2, "  GOOD LUCK, ADVENTURER.", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 1, "", color.light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2), "Press any key to continue.", color.white());
+    (void)_getch(); //Explicitly ignore return value
+}
+
+void Game::DrawWinScreen()
+{
+    auto* app = new Application();
+    app->DrawOutro();
+    delete app;
 }
 
 // https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
@@ -135,7 +146,7 @@ RoomSize Game::GetRoomSize()
     return roomSize;
 }
 
-char Game::GetFloorChar()
+char Game::GetFloorChar() const
 {
     return charType.floor;
 }

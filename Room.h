@@ -13,8 +13,8 @@
 class Room
 {
 public:
-    int GetWidth();
-    int GetHeight();
+    int GetWidth() const;
+    int GetHeight() const;
 
     void Initialize(int width, int height, char wall, char floor);
 

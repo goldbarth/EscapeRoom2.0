@@ -3,9 +3,8 @@
 //
 
 #include <iostream>
-//#include <ncurses.h>
-//#include <conio.h>
 #include "Windows.h"
+#include "Hlpr.h"
 #include "Game.h"
 
 #ifndef ESCAPEROOM2_0_APPLICATION_H
@@ -16,6 +15,7 @@ class Application
 {
 public:
     void Run();
+    void DrawOutro();
 
 private:
     enum Screen
@@ -24,24 +24,22 @@ private:
         DEFAULT
     };
 
-    //Game* game;
+    ConsoleColor color;
 
     void MainMenu();
-    void EnterGame();
     void EnterTutorial();
-
-    void DrawTitleOptions();
-    void DrawTitleScreen();
-    void DrawOutroScreen();
-    void DrawGameOptions();
-    void DrawTutorial();
-
-
     void GameOptions(Application::Screen screen);
-    char GetInputOptions(Application::Screen screen);
 
+    static void EnterGame();
+    static void DrawTitleOptions();
+    static void DrawTitleScreen();
+    static void DrawOutroScreen();
+    static void DrawGameOptions();
+    static void DrawTutorial();
     static void ExitApplication();
-    static void WriteLine(const std::string& text);
+
+    static char GetInputOptions(Application::Screen screen);
+
 };
 
 
