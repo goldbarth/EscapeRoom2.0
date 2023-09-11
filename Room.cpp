@@ -37,6 +37,7 @@ void Room::DrawRoom(char wall, char floor)
                 }
             }
         }
+
         std::cout << std::endl;
     }
 }
@@ -51,3 +52,5 @@ int Room::GetHeight() const
 {
     return height;
 }
+
+Room::Room() : width(0), height(0) {}

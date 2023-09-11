@@ -2,11 +2,18 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <iostream>
-#include "Hlpr.h"
 
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
+
+#include <iostream>
+#include <memory>
+#include "Application.h"
+#include "Player.h"
+#include "Hlpr.h"
+#include "Room.h"
+#include "Exit.h"
+#include "Key.h"
 
 struct RoomSize
 {
@@ -14,15 +21,8 @@ struct RoomSize
     int height;
 };
 
-struct CharType
-{
-    char wall = '#';
-    char floor = ' ';
-    char key = '$';
-    char exit = '#';
-    char player = '@';
-};
 
+class Application;
 class Player;
 class Room;
 class Exit;
@@ -31,41 +31,50 @@ class Key;
 class Game
 {
 public:
-    explicit Game();
-    ~Game();
-
-    char GetFloorChar() const;
+    explicit Game(Application& app);
+    inline ~Game() = default;
 
     void Start();
     bool IsPlayerOnExit();
+
+    struct CharType
+    {
+        char wall = '#';
+        char floor = ' ';
+        char key = '$';
+        char exit = '#';
+        char player = '@';
+    };
 
 private:
     ConsoleColor color;
     CharType charType;
 
+    std::unique_ptr<Room> room;
+    std::unique_ptr<Exit> exit;
+    std::unique_ptr<Key> key;
+    std::unique_ptr<Player> player;
+
+    Application& app;
+
     bool gameIsRunning = true;
     bool isExitOpen = false;
-
-    Player* player;
-    Room* room;
-    Exit* exit;
-    Key* key;
 
     void InitializeObjects(RoomSize roomSize);
 
     void GameLoop();
     void OpenExit();
+    void DrawWinScreen();
     void CheckIfExitOpens();
     void CheckIfPlayerEntersExit();
     void PlayExitAnimation();
     void DrawGameEndText();
 
-    static void DrawWinScreen();
-    static void ShowConsoleCursor(bool showFlag);
-
     bool HasPlayerKeyCollected();
 
-    static RoomSize GetRoomSize();
+    static RoomSize EvaluateRoomSize();
+
+    static void DrawPromptCommand();
 };
 
 

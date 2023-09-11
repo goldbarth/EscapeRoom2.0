@@ -2,44 +2,52 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <iostream>
-#include "Windows.h"
-#include "Hlpr.h"
-#include "Game.h"
-
 #ifndef ESCAPEROOM2_0_APPLICATION_H
 #define ESCAPEROOM2_0_APPLICATION_H
 
+#include <iostream>
+#include <memory>
+#include "Windows.h"
+#include "Game.h"
+#include "Hlpr.h"
+
+class Game;
+
+enum class GameState
+{
+    MainMenu,
+    Game,
+    Tutorial,
+    Exit,
+};
 
 class Application
 {
 public:
+    Application();
+    inline ~Application() = default;
+
     void Run();
-    void DrawOutro();
+    void EnterOutro();
+    void SetState(GameState state);
 
 private:
     enum Screen
     {
-        TITLE,
-        DEFAULT
+        Title,
+        Default
     };
 
-    ConsoleColor color;
+    std::unique_ptr<Game> game;
+    GameState gameState;
+
+    [[noreturn]] void GameLoop();
 
     void MainMenu();
+    void EnterGame();
     void EnterTutorial();
-    void GameOptions(Application::Screen screen);
 
-    static void EnterGame();
-    static void DrawTitleOptions();
-    static void DrawTitleScreen();
-    static void DrawOutroScreen();
-    static void DrawGameOptions();
-    static void DrawTutorial();
     static void ExitApplication();
-
-    static char GetInputOptions(Application::Screen screen);
-
 };
 
 

@@ -2,12 +2,13 @@
 // Created by goldbarth on 10.09.2023.
 //
 
-#include <Windows.h>
-#include <iostream>
-#include <string>
 
 #ifndef ESCAPEROOM2_0_HLPR_H
 #define ESCAPEROOM2_0_HLPR_H
+
+#include <Windows.h>
+#include <iostream>
+#include <string>
 
 struct ConsoleColor
 {
@@ -115,7 +116,7 @@ class Hlpr
 
         static void ClearScreen();
         static void SetConsoleCursorPos(int left, int top);
-        static void HideConsoleCursor(bool showFlag);
+        static void ShowConsoleCursor(bool showFlag);
 
 };
 

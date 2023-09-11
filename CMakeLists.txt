@@ -18,4 +18,6 @@ add_executable(EscapeRoom2_0 main.cpp
         Application.h
         Hlpr.cpp
         Hlpr.h
+        Menu.cpp
+        Menu.h
 )

@@ -2,17 +2,19 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#ifndef ESCAPEROOM2_0_ROOM_H
+#define ESCAPEROOM2_0_ROOM_H
+
 #include <Windows.h>
 #include <iostream>
 #include <vector>
 #include "Game.h"
 
-#ifndef ESCAPEROOM2_0_ROOM_H
-#define ESCAPEROOM2_0_ROOM_H
-
 class Room
 {
 public:
+    Room();
+
     int GetWidth() const;
     int GetHeight() const;
 

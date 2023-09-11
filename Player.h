@@ -5,14 +5,13 @@
 #ifndef ESCAPEROOM2_0_PLAYER_H
 #define ESCAPEROOM2_0_PLAYER_H
 
+#include <iostream>
 #include <conio.h>
-#include "Player.h"
-#include "Game.h"
-#include "Room.h"
+#include <memory>
+#include <ctime>
 #include "Hlpr.h"
-#include "Key.h"
 #include "Game.h"
-#include "Room.h"
+#include "Exit.h"
 #include "Key.h"
 
 struct ArrowKey
@@ -23,12 +22,14 @@ struct ArrowKey
     char right = 'd';
 };
 
+class Game;
+class Room;
+class Key;
+
 class Player
 {
 public:
-    bool keyIsCollected;
-
-    Player(Game* game, Room* room, Key* key);
+    explicit Player(Game& game, Room& room, Key& key);
 
     void Initialize(char player);
     void UpdatePos(int x, int y, char symbol);
@@ -39,11 +40,16 @@ public:
     int GetXPos() const;
     int GetYPos() const;
 
+    void SetKeyIsCollected(bool value);
+
 private:
+    Game& game;
+    Room& room;
+    Key& key;
+
     ConsoleColor color;
-    Game* game;
-    Room* room;
-    Key* key;
+
+    bool keyIsCollected;
 
     int xPos;
     int yPos;
@@ -52,7 +58,7 @@ private:
     static bool IsNewPosWall(int x, int y);
 
     void GetRandomStartPos();
-    void SetPos(char player);
+    void SetPos(char symbol);
 
     bool IsThisPosKeyPos();
     bool IsNotAtRightWall(int x, int y);

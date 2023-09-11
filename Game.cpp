@@ -5,34 +5,38 @@
 #include "Application.h"
 #include "Player.h"
 #include "Game.h"
-#include "Room.h"
-#include "Exit.h"
 #include "Key.h"
 
-
-Game::Game() : player(), key(), exit(), room()
+Game::Game(Application& app) : app(app), room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
+        exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key))
 {
-    // Allocate memory for these objects
-    this->room = new Room();
-    this->key = new Key(this->room);
-    this->exit = new Exit(this->room);
-    this->player = new Player(this, this->room, this->key);
+    color = ConsoleColor();
+    charType = CharType();
 
     gameIsRunning = true;
+    isExitOpen = false;
 }
 
 void Game::Start()
 {
-    Hlpr::ClearScreen();
-    RoomSize roomSize = GetRoomSize();
+    gameIsRunning = true;
+    isExitOpen = false;
+    player->SetKeyIsCollected(false);
 
+    DrawPromptCommand();
+    InitializeObjects(EvaluateRoomSize());
+}
+
+void Game::DrawPromptCommand()
+{
     Hlpr::ClearScreen();
-    ShowConsoleCursor(false);
-    InitializeObjects(roomSize);
+    Hlpr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
+    Hlpr::WriteLine("\n\n\n   Enter the room size you want to play in.");
 }
 
 void Game::InitializeObjects(RoomSize roomSize)
 {
+    Hlpr::ClearScreen();
     room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);
     key->Initialize(charType.key);
     exit->Initialize(charType.exit);
@@ -76,7 +80,6 @@ void Game::CheckIfPlayerEntersExit()
         DrawGameEndText();
         DrawWinScreen();
 
-        ShowConsoleCursor(true);
         gameIsRunning = false;
     }
 }
@@ -103,21 +106,7 @@ void Game::DrawGameEndText()
 
 void Game::DrawWinScreen()
 {
-    auto* app = new Application();
-    app->DrawOutro();
-    delete app;
-}
-
-// https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
-void Game::ShowConsoleCursor(bool showFlag)
-{
-    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = showFlag;
-    SetConsoleCursorInfo(out, &cursorInfo);
+    app.EnterOutro();
 }
 
 bool Game::IsPlayerOnExit()
@@ -130,13 +119,14 @@ bool Game::HasPlayerKeyCollected()
     return player->HasKey();
 }
 
-RoomSize Game::GetRoomSize()
+RoomSize Game::EvaluateRoomSize()
 {
     int width;
     int height;
-    std::cout << "Enter room width: ";
+
+    Hlpr::Write("\n   Enter room width: ");
     std::cin >> width;
-    std::cout << "Enter room height: ";
+    Hlpr::Write("\n   Enter room height: ");
     std::cin >> height;
 
     RoomSize roomSize{};
@@ -144,19 +134,6 @@ RoomSize Game::GetRoomSize()
     roomSize.height = height;
 
     return roomSize;
-}
-
-char Game::GetFloorChar() const
-{
-    return charType.floor;
-}
-
-Game::~Game()
-{
-    delete player;
-    delete room;
-    delete exit;
-    delete key;
 }
 
 

@@ -105,6 +105,13 @@ build CMakeFiles\EscapeRoom2_0.dir\Hlpr.cpp.obj: CXX_COMPILER__EscapeRoom2_0_uns
   TARGET_COMPILE_PDB = CMakeFiles\EscapeRoom2_0.dir\
   TARGET_PDB = EscapeRoom2_0.pdb
 
+build CMakeFiles\EscapeRoom2_0.dir\Menu.cpp.obj: CXX_COMPILER__EscapeRoom2_0_unscanned_Debug E$:\GitFork\EscapeRoom2.0\Menu.cpp || cmake_object_order_depends_target_EscapeRoom2_0
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++17 -MDd -Zi
+  OBJECT_DIR = CMakeFiles\EscapeRoom2_0.dir
+  OBJECT_FILE_DIR = CMakeFiles\EscapeRoom2_0.dir
+  TARGET_COMPILE_PDB = CMakeFiles\EscapeRoom2_0.dir\
+  TARGET_PDB = EscapeRoom2_0.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target EscapeRoom2_0
@@ -113,7 +120,7 @@ build CMakeFiles\EscapeRoom2_0.dir\Hlpr.cpp.obj: CXX_COMPILER__EscapeRoom2_0_uns
 #############################################
 # Link the executable EscapeRoom2_0.exe
 
-build EscapeRoom2_0.exe: CXX_EXECUTABLE_LINKER__EscapeRoom2_0_Debug CMakeFiles\EscapeRoom2_0.dir\main.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Game.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Exit.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Player.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Key.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Room.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Application.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Hlpr.cpp.obj
+build EscapeRoom2_0.exe: CXX_EXECUTABLE_LINKER__EscapeRoom2_0_Debug CMakeFiles\EscapeRoom2_0.dir\main.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Game.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Exit.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Player.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Key.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Room.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Application.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Hlpr.cpp.obj CMakeFiles\EscapeRoom2_0.dir\Menu.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Application.h"
+#include "Hlpr.h"
 
 int main()
 {
-    Application app{};
+    Hlpr::ShowConsoleCursor(false);
+    Application app;
     app.Run();
-    delete &app;
-    return 0;
 }

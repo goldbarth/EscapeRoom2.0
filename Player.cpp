@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-Player::Player(Game* game, Room* room, Key* key) :game(game), room(room), key(key), xPos(0), yPos(0)
+Player::Player(Game& game, Room &room, Key &key) : game(game), room(room), key(key), xPos(0), yPos(0)
 {
     keyIsCollected = false;
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -25,7 +25,8 @@ void Player::Move(char player)
     auto valid = _kbhit();
     if(valid)
     {
-        UpdatePos(xPos, yPos, game->GetFloorChar());
+        Game::CharType charType;
+        UpdatePos(xPos, yPos, charType.floor);
 
         char inputKey = (char)_getch(); // read the key
         switch (inputKey)
@@ -35,7 +36,7 @@ void Player::Move(char player)
                 else PlayBeep();
                 break;
             case ArrowKey().down:
-                if (yPos < room->GetHeight()) yPos++;
+                if (yPos < room.GetHeight()) yPos++;
                 else PlayBeep();
                 break;
             case ArrowKey().left:
@@ -43,12 +44,12 @@ void Player::Move(char player)
                 else PlayBeep();
                 break;
             case ArrowKey().right:
-                if (xPos < room->GetWidth()) xPos++;
+                if (xPos < room.GetWidth()) xPos++;
                 else PlayBeep();
                 break;
             default:
                 // Prevent printing any other letter/symbol next to the player char if pressed
-                std::cout << game->GetFloorChar();
+                std::cout << charType.floor;
                 break;
         }
 
@@ -64,7 +65,7 @@ void Player::UpdatePos(int x, int y, char symbol)
 
 bool Player::IsNotAtRightWall(int x, int y)
 {
-    return (x != room->GetWidth() + 1 || y == 0 || game->IsPlayerOnExit());
+    return (x != room.GetWidth() + 1 || y == 0 || game.IsPlayerOnExit());
 }
 
 void Player::PlayBeep()
@@ -79,28 +80,26 @@ bool Player::IsNewPosWall(int x, int y)
 
 bool Player::IsThisPosKeyPos()
 {
-    return xPos == key->GetXPos() && yPos == key->GetYPos();
+    return xPos == key.GetXPos() && yPos == key.GetYPos();
 }
 
 bool Player::HasKey()
 {
-    if(keyIsCollected) return keyIsCollected;
-
     if (IsThisPosKeyPos() && !keyIsCollected)
         keyIsCollected = true;
 
-    return false;
+    return keyIsCollected;
 }
 
 void Player::GetRandomStartPos()
 {
-    xPos = rand() % (room->GetWidth() - 1) + 1;
-    yPos = rand() % (room->GetHeight() - 1) + 1;
+    xPos = rand() % (room.GetWidth() - 1) + 1;
+    yPos = rand() % (room.GetHeight() - 1) + 1;
 }
 
-void Player::SetPos(char player)
+void Player::SetPos(char symbol)
 {
-    Hlpr::WriteAt(xPos, yPos, player, color.light_green());
+    Hlpr::WriteAt(xPos, yPos, symbol, color.light_green());
 }
 
 int Player::GetXPos() const
@@ -112,3 +111,10 @@ int Player::GetYPos() const
 {
     return yPos;
 }
+
+void Player::SetKeyIsCollected(bool value)
+{
+    keyIsCollected = value;
+}
+
+

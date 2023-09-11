@@ -4,7 +4,7 @@
 
 #include "Exit.h"
 
-Exit::Exit(Room *room) : room(room), xPos(0), yPos(0)
+Exit::Exit(Room& room) : room(room), xPos(0), yPos(0)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
@@ -26,8 +26,8 @@ void Exit::DrawExit(char exit) const
 
 void Exit::SetRandomPosition()
 {
-    xPos = room->GetWidth() + 1;
-    yPos = rand() % (room->GetHeight() - 1) + 2;
+    xPos = room.GetWidth() + 1;
+    yPos = rand() % (room.GetHeight() - 1) + 2;
 }
 
 int Exit::GetXPos() const

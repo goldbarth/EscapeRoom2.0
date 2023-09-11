@@ -68,7 +68,8 @@ void Hlpr::SetConsoleCursorPos(int left, int top)
                              {static_cast<SHORT>(left), static_cast<SHORT>(top) });
 }
 
-void Hlpr::HideConsoleCursor(bool showFlag)
+// https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
+void Hlpr::ShowConsoleCursor(bool showFlag)
 {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
