@@ -2,7 +2,6 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-
 #ifndef ESCAPEROOM2_0_EXIT_H
 #define ESCAPEROOM2_0_EXIT_H
 
@@ -22,11 +21,11 @@ public:
     explicit Exit(Room& room);
     inline ~Exit() = default;
 
-    int GetXPos() const;
-    int GetYPos() const;
+    [[nodiscard]] inline int GetXPos() const { return xPos; }
+    [[nodiscard]] inline int GetYPos() const { return yPos; }
 
-    void Initialize(char exit);
-    void DrawExit(char exit) const;
+    void Initialize(const char& exit);
+    void DrawExit(const char& exit) const;
 
 private:
     Room& room;

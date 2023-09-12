@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 
+
 struct ColorCode
 {
     // Foreground (text)
@@ -55,18 +56,18 @@ class Hlpr
         static void Write(const std::string& text);
         static void Write(const char& text);
 
-        static void WriteAt(int left, int top, const std::string& text, const std::string& textColor);
-        static void WriteAt(int left, int top, const char& letter, const std::string& textColor);
-        static void WriteAt(int left, int top, const char& letter);
+        static void WriteAt(const int& left, const int& top, const std::string& text, const std::string& textColor);
+        static void WriteAt(const int& left, const int& top, const char& letter, const std::string& textColor);
+        static void WriteAt(const int& left, const int& top, const char& letter);
 
         static void WriteLine(const std::string& text);
         static void WriteLine(const char& letter);
 
-        static void WriteLineAt(double left, double top, const std::string& text, const std::string& textColor);
+        static void WriteLineAt(const double& left, const double& top, const std::string& text, const std::string& textColor);
 
         static void ClearScreen();
-        static void SetConsoleCursorPos(int left, int top);
-        static void ShowConsoleCursor(bool showFlag);
+        static void SetConsoleCursorPos(const double& left, const double& top);
+        static void ShowConsoleCursor(const bool& showFlag);
 };
 
 

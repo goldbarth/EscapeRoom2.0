@@ -11,7 +11,7 @@ Player::Player(Game& game, Room &room, Key &key) : game(game), room(room),
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Player::Initialize(char player)
+void Player::Initialize(const char& player)
 {
     do
     {
@@ -20,7 +20,7 @@ void Player::Initialize(char player)
     } while (IsThisPosKeyPos());
 }
 
-void Player::Move(char player)
+void Player::Move(const char& player)
 {
     // Check if a key is pressed
     auto valid = _kbhit();
@@ -58,13 +58,13 @@ void Player::Move(char player)
     }
 }
 
-void Player::UpdatePos(int x, int y, char symbol)
+void Player::UpdatePos(const int& x, const int& y, const char& symbol)
 {
     if (IsNewPosWall(x, y) || !IsNotAtRightWall(x, y)) return;
     SetPos(symbol);
 }
 
-bool Player::IsNotAtRightWall(int x, int y)
+bool Player::IsNotAtRightWall(const int& x, const int& y)
 {
     return (x != room.GetWidth() + 1 || y == 0 || game.IsPlayerOnExit());
 }
@@ -74,7 +74,7 @@ void Player::PlayStopSound()
     Beep(120, 200);
 }
 
-bool Player::IsNewPosWall(int x, int y)
+bool Player::IsNewPosWall(const int& x, const int& y)
 {
     return x <= 0 || y <= 0;
 }
@@ -98,24 +98,9 @@ void Player::GetRandomStartPos()
     yPos = rand() % (room.GetHeight() - 1) + 1;
 }
 
-void Player::SetPos(char symbol) const
+void Player::SetPos(const char& symbol) const
 {
     Hlpr::WriteAt(xPos, yPos, symbol, ColorCode::light_green());
-}
-
-int Player::GetXPos() const
-{
-    return xPos;
-}
-
-int Player::GetYPos() const
-{
-    return yPos;
-}
-
-void Player::SetKeyIsCollected(bool value)
-{
-    keyIsCollected = value;
 }
 
 

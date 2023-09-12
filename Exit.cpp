@@ -9,13 +9,13 @@ Exit::Exit(Room& room) : room(room), xPos(0), yPos(0)
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Exit::Initialize(char exit)
+void Exit::Initialize(const char& exit)
 {
     SetRandomPosition();
     DrawExit(exit);
 }
 
-void Exit::DrawExit(char exit) const
+void Exit::DrawExit(const char& exit) const
 {
     std::cout << "\x1B[35m";
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -28,16 +28,6 @@ void Exit::SetRandomPosition()
 {
     xPos = room.GetWidth() + 1;
     yPos = rand() % (room.GetHeight() - 1) + 2;
-}
-
-int Exit::GetXPos() const
-{
-    return xPos;
-}
-
-int Exit::GetYPos() const
-{
-    return yPos;
 }
 
 

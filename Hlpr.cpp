@@ -28,7 +28,7 @@ void Hlpr::WriteLine(const char& letter)
 /// Write a line at a cursor position with a textColor.
 /// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
-void Hlpr::WriteLineAt(double left, double top, const std::string &text, const std::string &textColor)
+void Hlpr::WriteLineAt(const double& left, const double& top, const std::string &text, const std::string &textColor)
 {
     SetConsoleCursorPos(left, top);
     std::cout << "\x1B[" << textColor << "m";
@@ -36,7 +36,7 @@ void Hlpr::WriteLineAt(double left, double top, const std::string &text, const s
     std::cout << "\x1B[0m";
 }
 
-void Hlpr::WriteAt(int left, int top, const char& letter)
+void Hlpr::WriteAt(const int& left, const int& top, const char& letter)
 {
     SetConsoleCursorPos(left, top);
     std::cout << letter;
@@ -46,7 +46,7 @@ void Hlpr::WriteAt(int left, int top, const char& letter)
 /// Write at a cursor position with a textColor.
 /// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
-void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string& textColor)
+void Hlpr::WriteAt(const int& left, const int& top, const std::string& text, const std::string& textColor)
 {
     SetConsoleCursorPos(left, top);
     std::cout << "\x1B[" << textColor << "m";
@@ -58,7 +58,7 @@ void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string
 /// Write at a cursor position with a textColor.
 /// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
-void Hlpr::WriteAt(int left, int top, const char& text, const std::string& textColor)
+void Hlpr::WriteAt(const int& left, const int& top, const char& text, const std::string& textColor)
 {
     SetConsoleCursorPos(left, top);
     std::cout << "\x1B[" << textColor << "m";
@@ -66,7 +66,7 @@ void Hlpr::WriteAt(int left, int top, const char& text, const std::string& textC
     std::cout << "\x1B[0m";
 }
 
-void Hlpr::SetConsoleCursorPos(int left, int top)
+void Hlpr::SetConsoleCursorPos(const double& left, const double& top)
 {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
                              {static_cast<SHORT>(left), static_cast<SHORT>(top) });
@@ -77,7 +77,7 @@ void Hlpr::SetConsoleCursorPos(int left, int top)
 /// Set it to false will hide the blinking bar/underscore.
 /// Src: https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
 /// </summary>
-void Hlpr::ShowConsoleCursor(bool showFlag)
+void Hlpr::ShowConsoleCursor(const bool& showFlag)
 {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 

@@ -24,16 +24,16 @@ class Player
 public:
     explicit Player(Game& game, Room& room, Key& key);
 
-    void Initialize(char player);
-    void UpdatePos(int x, int y, char symbol);
-    void Move(char player);
+    void Initialize(const char& player);
+    void UpdatePos(const int& x, const int& y, const char& symbol);
+    void Move(const char& player);
 
     bool HasKey();
 
-    int GetXPos() const;
-    int GetYPos() const;
+    inline int GetXPos() const { return xPos; }
+    inline int GetYPos() const { return yPos; }
 
-    void SetKeyIsCollected(bool value);
+    inline void SetKeyIsCollected(const bool& value) { keyIsCollected = value; }
 
 private:
     Game& game;
@@ -51,13 +51,13 @@ private:
     constexpr static const char right = 'd';
 
     static void PlayStopSound();
-    static bool IsNewPosWall(int x, int y);
+    static bool IsNewPosWall(const int& x, const int& y);
 
     void GetRandomStartPos();
-    void SetPos(char symbol) const;
+    void SetPos(const char& symbol) const;
 
     bool IsThisPosKeyPos();
-    bool IsNotAtRightWall(int x, int y);
+    bool IsNotAtRightWall(const int& x, const int& y);
 };
 
 #endif //ESCAPEROOM2_0_PLAYER_H

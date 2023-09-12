@@ -21,10 +21,10 @@ public:
     explicit Key(Room& room);
     inline ~Key() = default;
 
-    int GetXPos() const;
-    int GetYPos() const;
+    inline int GetXPos() const { return xPos; }
+    inline int GetYPos() const { return xPos; }
 
-    void Initialize(char key);
+    void Initialize(const char& key);
 
 private:
     Room& room;
@@ -32,7 +32,7 @@ private:
     int xPos;
     int yPos;
 
-    void DrawKey(char key);
+    void DrawKey(const char& key) const;
     void SetRandomPosition();
 };
 

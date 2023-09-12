@@ -29,7 +29,7 @@ public:
 
     void Run();
     void EnterOutro();
-    void SetState(GameState state);
+    void SetState(const GameState& state);
 
 private:
     std::unique_ptr<Game> game;

@@ -33,7 +33,7 @@ void Game::DrawPromptCommand()
     Hlpr::WriteLine("\n\n\n   Enter the room size you want to play in.");
 }
 
-void Game::InitializeObjects(RoomSize roomSize)
+void Game::InitializeObjects(const RoomSize& roomSize)
 {
     Hlpr::ClearScreen();
     room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);

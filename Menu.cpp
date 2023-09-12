@@ -116,7 +116,7 @@ void Menu::DrawTutorial()
     Hlpr::WriteLine("");
 }
 
-void Menu::GameOptions(ScreenType screen) // NOLINT(*-no-recursion)
+void Menu::GameOptions(const ScreenType& screen) // NOLINT(*-no-recursion)
 {
     auto inputKey = GetInputOptions(screen);
     switch(inputKey)
@@ -136,7 +136,7 @@ void Menu::GameOptions(ScreenType screen) // NOLINT(*-no-recursion)
     }
 }
 
-void Menu::ExitOptions(ScreenType screen)
+void Menu::ExitOptions(const ScreenType& screen)
 {
     auto inputKey = GetInputOptions(screen);
     switch(inputKey)
@@ -153,7 +153,7 @@ void Menu::ExitOptions(ScreenType screen)
     }
 }
 
-char Menu::GetInputOptions(Menu::ScreenType screen)
+char Menu::GetInputOptions(const ScreenType& screen)
 {
     char inputKey;
     bool valid;

@@ -65,7 +65,7 @@ void Application::ExitApplication()
     menu.InitializeExit();
 }
 
-void Application::SetState(GameState state)
+void Application::SetState(const GameState& state)
 {
     gameState = state;
 }

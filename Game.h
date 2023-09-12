@@ -21,7 +21,6 @@ struct RoomSize
     int height;
 };
 
-
 class Application;
 class Player;
 class Room;
@@ -59,7 +58,7 @@ private:
     bool gameIsRunning = true;
     bool isExitOpen = false;
 
-    void InitializeObjects(RoomSize roomSize);
+    void InitializeObjects(const RoomSize& roomSize);
 
     void GameLoop();
     void OpenExit();
