@@ -21,8 +21,8 @@ public:
     explicit Key(Room& room);
     inline ~Key() = default;
 
-    inline int GetXPos() const { return xPos; }
-    inline int GetYPos() const { return xPos; }
+    [[nodiscard]] inline int GetXPos() const { return xPos; }
+    [[nodiscard]] inline int GetYPos() const { return yPos; }
 
     void Initialize(const char& key);
 
