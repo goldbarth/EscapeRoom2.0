@@ -62,7 +62,8 @@ void Application::EnterGame()
 
 void Application::ExitApplication()
 {
-    exit(0);
+    Menu menu(this);
+    menu.InitializeExit();
 }
 
 void Application::SetState(GameState state)

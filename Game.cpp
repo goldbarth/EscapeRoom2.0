@@ -7,10 +7,10 @@
 #include "Game.h"
 #include "Key.h"
 
+// Reference to the Application class is important to close the game loop.
 Game::Game(Application& app) : app(app), room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
         exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key))
 {
-    color = ConsoleColor();
     charType = CharType();
 
     gameIsRunning = true;
@@ -24,7 +24,8 @@ void Game::Start()
     player->SetKeyIsCollected(false);
 
     DrawPromptCommand();
-    InitializeObjects(EvaluateRoomSize());
+    auto roomSize = EvaluateRoomSize();
+    InitializeObjects(roomSize);
 }
 
 void Game::DrawPromptCommand()
@@ -45,6 +46,23 @@ void Game::InitializeObjects(RoomSize roomSize)
     GameLoop();
 }
 
+RoomSize Game::EvaluateRoomSize()
+{
+    int width;
+    int height;
+
+    Hlpr::Write("\n   Enter room width: ");
+    std::cin >> width;
+    Hlpr::Write("\n   Enter room height: ");
+    std::cin >> height;
+
+    RoomSize roomSize{};
+    roomSize.width = width;
+    roomSize.height = height;
+
+    return roomSize;
+}
+
 void Game::GameLoop()
 {
     while (gameIsRunning)
@@ -55,26 +73,27 @@ void Game::GameLoop()
     }
 }
 
+void Game::CheckIfExitOpens()
+{
+    if (HasPlayerKeyCollected() && !isExitOpen) OpenExit();
+}
+
 void Game::OpenExit()
 {
-    for (int i = 0; i <2; ++i)
+    for (int i = 0; i < 2; ++i)
         Beep(1000, 100);
 
     exit->DrawExit(charType.floor);
     isExitOpen = true;
 }
 
-void Game::CheckIfExitOpens()
-{
-    if (HasPlayerKeyCollected() && !isExitOpen) OpenExit();
-}
-
 void Game::CheckIfPlayerEntersExit()
 {
     if (IsPlayerOnExit() && HasPlayerKeyCollected())
     {
-        for (int i = 0; i < 3; ++i)
-            Beep(50, 100);
+        // Multiply with i to get a different pitch for each beep.
+        for (int i = 0; i < 4; ++i)
+            Beep(300 * i, 100);
 
         PlayExitAnimation();
         DrawGameEndText();
@@ -86,21 +105,22 @@ void Game::CheckIfPlayerEntersExit()
 
 void Game::PlayExitAnimation()
 {
+    // ...@
     std::string result = "..." + std::string(1, charType.player);
-    Hlpr::WriteAt(player->GetXPos(), player->GetYPos(), result, color.light_green());
+    Hlpr::WriteAt(player->GetXPos(), player->GetYPos(), result, ConsoleColor::light_green());
 }
 
 void Game::DrawGameEndText()
 {
     // Set the text compared to the room size in the middle of the room.
     SetCursorPos(0, 0);
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 6, "     CONGRATULATIONS!", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 5, " YOU ESCAPED THE DARKNESS.", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 4, "  NOW YOU WILL ENTER THE", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 3, "        UNKNOWN.", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 2, "  GOOD LUCK, ADVENTURER.", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 1, "", color.light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2), "Press any key to continue.", color.white());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 6, "     CONGRATULATIONS!", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 5, " YOU ESCAPED THE DARKNESS.", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 4, "  NOW YOU WILL ENTER THE", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 3, "         UNKNOWN.", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 2, "  GOOD LUCK, ADVENTURER.", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2) - 1, "", ConsoleColor::light_yellow());
+    Hlpr::WriteLineAt((room->GetWidth()/2) - 12, (room->GetHeight()/2), "Press any key to continue.", ConsoleColor::white());
     (void)_getch(); //Explicitly ignore return value
 }
 
@@ -117,23 +137,6 @@ bool Game::IsPlayerOnExit()
 bool Game::HasPlayerKeyCollected()
 {
     return player->HasKey();
-}
-
-RoomSize Game::EvaluateRoomSize()
-{
-    int width;
-    int height;
-
-    Hlpr::Write("\n   Enter room width: ");
-    std::cin >> width;
-    Hlpr::Write("\n   Enter room height: ");
-    std::cin >> height;
-
-    RoomSize roomSize{};
-    roomSize.width = width;
-    roomSize.height = height;
-
-    return roomSize;
 }
 
 

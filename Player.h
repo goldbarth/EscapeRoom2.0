@@ -58,7 +58,7 @@ private:
     static bool IsNewPosWall(int x, int y);
 
     void GetRandomStartPos();
-    void SetPos(char symbol);
+    void SetPos(char symbol) const;
 
     bool IsThisPosKeyPos();
     bool IsNotAtRightWall(int x, int y);

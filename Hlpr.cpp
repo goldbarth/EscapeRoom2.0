@@ -9,7 +9,7 @@ void Hlpr::Write(const std::string &text)
     std::cout << text;
 }
 
-void Hlpr::Write(const char *text)
+void Hlpr::Write(const char& text)
 {
     std::cout << text;
 }
@@ -19,11 +19,15 @@ void Hlpr::WriteLine(const std::string& text)
     std::cout << text << std::endl;
 }
 
-void Hlpr::WriteLine(const char& text)
+void Hlpr::WriteLine(const char& letter)
 {
-    std::cout << text << std::endl;
+    std::cout << letter << std::endl;
 }
 
+/// <summary>
+/// Write a line at a cursor position with a textColor.
+/// Insert the textColor over the ConsoleColor struct in Hlpr.h.
+/// </summary>
 void Hlpr::WriteLineAt(int left, int top, const std::string &text, const std::string &textColor)
 {
     SetConsoleCursorPos(left, top);
@@ -32,14 +36,14 @@ void Hlpr::WriteLineAt(int left, int top, const std::string &text, const std::st
     std::cout << "\x1B[0m";
 }
 
-void Hlpr::WriteAt(int left, int top, const char& text)
+void Hlpr::WriteAt(int left, int top, const char& letter)
 {
     SetConsoleCursorPos(left, top);
-    std::cout << text;
+    std::cout << letter;
 }
 
 /// <summary>
-/// Write text at a position with a textColor.
+/// Write at a cursor position with a textColor.
 /// Insert the textColor over the ConsoleColor struct in Hlpr.h.
 /// </summary>
 void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string& textColor)
@@ -51,7 +55,7 @@ void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string
 }
 
 /// <summary>
-/// Write text at a position with a textColor.
+/// Write at a cursor position with a textColor.
 /// Insert the textColor over the ConsoleColor struct in Hlpr.h.
 /// </summary>
 void Hlpr::WriteAt(int left, int top, const char& text, const std::string& textColor)
@@ -68,7 +72,11 @@ void Hlpr::SetConsoleCursorPos(int left, int top)
                              {static_cast<SHORT>(left), static_cast<SHORT>(top) });
 }
 
-// https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
+/// <summary>
+/// Set the parameter to true to show the cursor.
+/// Set it to false will hide the blinking bar/underscore.
+/// Src: https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
+/// </summary>
 void Hlpr::ShowConsoleCursor(bool showFlag)
 {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);

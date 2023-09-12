@@ -32,12 +32,6 @@ public:
     void SetState(GameState state);
 
 private:
-    enum Screen
-    {
-        Title,
-        Default
-    };
-
     std::unique_ptr<Game> game;
     GameState gameState;
 
@@ -46,8 +40,7 @@ private:
     void MainMenu();
     void EnterGame();
     void EnterTutorial();
-
-    static void ExitApplication();
+    void ExitApplication();
 };
 
 

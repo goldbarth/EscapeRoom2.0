@@ -6,6 +6,7 @@
 #define ESCAPEROOM2_0_MAINMENU_H
 
 #include <Windows.h>
+#include <algorithm>
 #include <iostream>
 #include "Application.h"
 #include "Hlpr.h"
@@ -14,29 +15,35 @@ class Menu
 {
 public:
     inline explicit Menu(Application* app) : app(app) {}
+    inline ~Menu() = default;
 
     void InitializeMainMenu();
     void InitializeTutorial();
     void InitializeOutro();
+    void InitializeExit();
 
 private:
-    enum Screen
+    enum ScreenType
     {
         Title,
-        Default
+        Default,
+        Exit,
     };
 
     Application* app{};
 
-    void Options(Menu::Screen screen);
+    void GameOptions(ScreenType screen);
+    void ExitOptions(ScreenType screen);
 
     static void DrawTitleOptions();
     static void DrawTitleScreen();
     static void DrawOutroScreen();
     static void DrawGameOptions();
     static void DrawTutorial();
+    static void DrawExitOptions();
+    static void ExitApplication();
 
-    static char GetInputOptions(Screen screen);
+    static char GetInputOptions(ScreenType screen);
 };
 
 #endif //ESCAPEROOM2_0_MAINMENU_H

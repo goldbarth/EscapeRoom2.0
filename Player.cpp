@@ -97,9 +97,9 @@ void Player::GetRandomStartPos()
     yPos = rand() % (room.GetHeight() - 1) + 1;
 }
 
-void Player::SetPos(char symbol)
+void Player::SetPos(char symbol) const
 {
-    Hlpr::WriteAt(xPos, yPos, symbol, color.light_green());
+    Hlpr::WriteAt(xPos, yPos, symbol, ConsoleColor::light_green());
 }
 
 int Player::GetXPos() const

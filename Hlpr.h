@@ -13,67 +13,67 @@
 struct ConsoleColor
 {
     // Foreground (text)
-    std::string black() const
+    static std::string black()
     {
         return "30"; // Black color code
     }
-    std::string red() const
+    static std::string red()
     {
         return "31"; // Red color code
     }
-    std::string green() const
+    static std::string green()
     {
         return "32"; // Green color code
     }
-    std::string yellow() const
+    static std::string yellow()
     {
         return "33"; // Yellow color code
     }
-    std::string blue() const
+    static std::string blue()
     {
         return "34"; // Blue color code
     }
-    std::string magenta() const
+    static std::string magenta()
     {
         return "35"; // Magenta color code
     }
-    std::string cyan() const
+    static std::string cyan()
     {
         return "36"; // Cyan color code
     }
-    std::string gray() const
+    static std::string gray()
     {
         return "37"; // Gray color code
     }
-    std::string dark_gray() const
+    static std::string dark_gray()
     {
         return "90"; // Dark gray color code
     }
-    std::string light_red() const
+    static std::string light_red()
     {
         return "91"; // Light red color code
     }
-    std::string light_green() const
+    static std::string light_green()
     {
         return "92"; // Light green color code
     }
-    std::string light_yellow() const
+    static std::string light_yellow()
     {
         return "93"; // Light yellow color code
     }
-    std::string light_blue() const
+    static std::string light_blue()
     {
         return "94"; // Light blue color code
     }
-    std::string light_magenta() const
+    static std::string light_magenta()
     {
         return "95"; // Light magenta color code
     }
-    std::string light_cyan() const
+    static std::string light_cyan()
     {
         return "96"; // Light cyan color code
     }
-    std::string white() const
+    static std::string white()
     {
         return "97"; // White color code
     }
@@ -103,14 +103,14 @@ class Hlpr
         static ConsoleColor color;
 
         static void Write(const std::string& text);
-        static void Write(const char* text);
+        static void Write(const char& text);
 
         static void WriteAt(int left, int top, const std::string& text, const std::string& textColor);
-        static void WriteAt(int left, int top, const char& text);
+        static void WriteAt(int left, int top, const char& letter);
         static void WriteAt(int left, int top, const char& text, const std::string& textColor);
 
         static void WriteLine(const std::string& text);
-        static void WriteLine(const char& text);
+        static void WriteLine(const char& letter);
 
         static void WriteLineAt(int left, int top, const std::string& text, const std::string& textColor);
 

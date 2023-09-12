@@ -47,15 +47,13 @@ public:
     };
 
 private:
-    ConsoleColor color;
-    CharType charType;
-
     std::unique_ptr<Room> room;
-    std::unique_ptr<Exit> exit;
     std::unique_ptr<Key> key;
+    std::unique_ptr<Exit> exit;
     std::unique_ptr<Player> player;
 
     Application& app;
+    CharType charType;
 
     bool gameIsRunning = true;
     bool isExitOpen = false;
