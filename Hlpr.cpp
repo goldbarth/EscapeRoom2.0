@@ -91,5 +91,5 @@ void Hlpr::ShowConsoleCursor(const bool& showFlag)
 void Hlpr::ClearScreen()
 {
     system("cls");
-    Sleep(60);
+    Sleep(100);
 }

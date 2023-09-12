@@ -6,13 +6,13 @@
 
 Room::Room() : width(0), height(0) {}
 
-void Room::Initialize(int width, int height, char wall, char floor)
+void Room::Initialize(const int& width, const int& height, const char& wall, const char& floor)
 {
     SetRoomSize(width, height);
     DrawRoom(wall, floor);
 }
 
-void Room::SetRoomSize(int width, int height)
+void Room::SetRoomSize(const int& width, const int& height)
 {
     this->width = width;
     this->height = height;
@@ -21,7 +21,7 @@ void Room::SetRoomSize(int width, int height)
 }
 
 
-void Room::DrawRoom(char wall, char floor)
+void Room::DrawRoom(const char& wall, const char& floor)
 {
     for (int y = -1; y < height + 1; y++)
     {
@@ -43,14 +43,4 @@ void Room::DrawRoom(char wall, char floor)
 
         std::cout << std::endl;
     }
-}
-
-int Room::GetWidth() const
-{
-    return width;
-}
-
-int Room::GetHeight() const
-{
-    return height;
 }

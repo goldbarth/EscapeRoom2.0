@@ -5,7 +5,7 @@
 #include "Player.h"
 
 
-Player::Player(Game& game, Room &room, Key &key) : game(game), room(room),
+Player::Player(Game& game, Room& room, Key& key) : game(game), room(room),
         key(key), xPos(0), yPos(0), keyIsCollected(false)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));

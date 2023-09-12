@@ -2,9 +2,8 @@
 // Created by goldbarth on 11.09.2023.
 //
 
-#include "Menu.h"
-
 #include <random>
+#include "Menu.h"
 
 
 void Menu::InitializeMainMenu()
