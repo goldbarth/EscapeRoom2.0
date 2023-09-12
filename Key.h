@@ -10,6 +10,8 @@
 #include <cstdlib>
 #include <memory>
 #include <ctime>
+#include "Room.h"
+
 
 class Room;
 

@@ -26,9 +26,9 @@ void Hlpr::WriteLine(const char& letter)
 
 /// <summary>
 /// Write a line at a cursor position with a textColor.
-/// Insert the textColor over the ConsoleColor struct in Hlpr.h.
+/// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
-void Hlpr::WriteLineAt(int left, int top, const std::string &text, const std::string &textColor)
+void Hlpr::WriteLineAt(double left, double top, const std::string &text, const std::string &textColor)
 {
     SetConsoleCursorPos(left, top);
     std::cout << "\x1B[" << textColor << "m";
@@ -44,7 +44,7 @@ void Hlpr::WriteAt(int left, int top, const char& letter)
 
 /// <summary>
 /// Write at a cursor position with a textColor.
-/// Insert the textColor over the ConsoleColor struct in Hlpr.h.
+/// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
 void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string& textColor)
 {
@@ -56,7 +56,7 @@ void Hlpr::WriteAt(int left, int top, const std::string& text, const std::string
 
 /// <summary>
 /// Write at a cursor position with a textColor.
-/// Insert the textColor over the ConsoleColor struct in Hlpr.h.
+/// Insert the textColor over the ColorCode struct in Hlpr.h.
 /// </summary>
 void Hlpr::WriteAt(int left, int top, const char& text, const std::string& textColor)
 {

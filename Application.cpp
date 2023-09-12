@@ -5,10 +5,9 @@
 #include "Application.h"
 #include "Menu.h"
 
-Application::Application() : game(std::make_unique<Game>(*this))
-{
-    gameState = GameState::MainMenu;
-}
+Application::Application() : game(std::make_unique<Game>(*this)),
+        gameState(GameState::MainMenu)
+{}
 
 void Application::Run()
 {

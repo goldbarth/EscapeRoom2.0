@@ -4,6 +4,8 @@
 
 #include "Room.h"
 
+Room::Room() : width(0), height(0) {}
+
 void Room::Initialize(int width, int height, char wall, char floor)
 {
     SetRoomSize(width, height);
@@ -17,6 +19,7 @@ void Room::SetRoomSize(int width, int height)
 
     room.resize(width, std::vector<int>(height, 0));
 }
+
 
 void Room::DrawRoom(char wall, char floor)
 {
@@ -42,7 +45,6 @@ void Room::DrawRoom(char wall, char floor)
     }
 }
 
-
 int Room::GetWidth() const
 {
     return width;
@@ -52,5 +54,3 @@ int Room::GetHeight() const
 {
     return height;
 }
-
-Room::Room() : width(0), height(0) {}

@@ -2,7 +2,6 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
 
@@ -14,6 +13,7 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Key.h"
+
 
 struct RoomSize
 {
@@ -35,6 +35,7 @@ public:
     inline ~Game() = default;
 
     void Start();
+
     bool IsPlayerOnExit();
 
     struct CharType

@@ -4,9 +4,10 @@
 
 #include "Player.h"
 
-Player::Player(Game& game, Room &room, Key &key) : game(game), room(room), key(key), xPos(0), yPos(0)
+
+Player::Player(Game& game, Room &room, Key &key) : game(game), room(room),
+        key(key), xPos(0), yPos(0), keyIsCollected(false)
 {
-    keyIsCollected = false;
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
@@ -31,21 +32,21 @@ void Player::Move(char player)
         char inputKey = (char)_getch(); // read the key
         switch (inputKey)
         {
-            case ArrowKey().up:
+            case up:
                 if (yPos > 1) yPos--;
-                else PlayBeep();
+                else PlayStopSound();
                 break;
-            case ArrowKey().down:
+            case down:
                 if (yPos < room.GetHeight()) yPos++;
-                else PlayBeep();
+                else PlayStopSound();
                 break;
-            case ArrowKey().left:
+            case left:
                 if (xPos > 1) xPos--;
-                else PlayBeep();
+                else PlayStopSound();
                 break;
-            case ArrowKey().right:
+            case right:
                 if (xPos < room.GetWidth()) xPos++;
-                else PlayBeep();
+                else PlayStopSound();
                 break;
             default:
                 // Prevent printing any other letter/symbol next to the player char if pressed
@@ -68,7 +69,7 @@ bool Player::IsNotAtRightWall(int x, int y)
     return (x != room.GetWidth() + 1 || y == 0 || game.IsPlayerOnExit());
 }
 
-void Player::PlayBeep()
+void Player::PlayStopSound()
 {
     Beep(120, 200);
 }
@@ -99,7 +100,7 @@ void Player::GetRandomStartPos()
 
 void Player::SetPos(char symbol) const
 {
-    Hlpr::WriteAt(xPos, yPos, symbol, ConsoleColor::light_green());
+    Hlpr::WriteAt(xPos, yPos, symbol, ColorCode::light_green());
 }
 
 int Player::GetXPos() const

@@ -14,13 +14,6 @@
 #include "Exit.h"
 #include "Key.h"
 
-struct ArrowKey
-{
-    char up = 'w';
-    char down = 's';
-    char left = 'a';
-    char right = 'd';
-};
 
 class Game;
 class Room;
@@ -47,14 +40,17 @@ private:
     Room& room;
     Key& key;
 
-    ConsoleColor color;
-
     bool keyIsCollected;
 
     int xPos;
     int yPos;
 
-    static void PlayBeep();
+    constexpr static const char up = 'w';
+    constexpr static const char down = 's';
+    constexpr static const char left = 'a';
+    constexpr static const char right = 'd';
+
+    static void PlayStopSound();
     static bool IsNewPosWall(int x, int y);
 
     void GetRandomStartPos();

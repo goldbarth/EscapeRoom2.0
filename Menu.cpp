@@ -6,6 +6,7 @@
 
 #include <random>
 
+
 void Menu::InitializeMainMenu()
 {
     DrawTitleScreen();
@@ -101,17 +102,17 @@ void Menu::DrawOutroScreen()
 void Menu::DrawTutorial()
 {
     Hlpr::ClearScreen();
-    Hlpr::WriteLine("\n\n       ******** ESCAPE ROOM ********");
-    Hlpr::WriteLine("        --------------------------");
-    Hlpr::WriteLine("        ******** TUTORIAL ********");
-    Hlpr::WriteLine("\n   At the start, the size of the Escape Room is determined.");
-    Hlpr::WriteLine("   Height and width are set by input.");
-    Hlpr::WriteLine("\n   The character moves by pressing the arrow keys: ^, v, <, >.");
+    Hlpr::WriteLine("\n\n                   ******** ESCAPE ROOM ********");
+    Hlpr::WriteLine("                    --------------------------");
+    Hlpr::WriteLine("                    ******** TUTORIAL ********");
+    Hlpr::WriteLine("\n     At the start, the size of the Escape Room is determined.");
+    Hlpr::WriteLine("                  Height and width are set by input.");
+    Hlpr::WriteLine("\n    The character moves by pressing the arrow keys: ^, v, <, >.");
     Hlpr::WriteLine("\n   The player is dropped at a random position in the Escape Room.");
-    Hlpr::WriteLine("   The room has a locked door that can be opened with a key.");
-    Hlpr::WriteLine("   The key can be found somewhere in the room.");
-    Hlpr::WriteLine("   When collected, the door opens automatically.");
-    Hlpr::WriteLine("\n\n   The game is won when the player goes through the door.");
+    Hlpr::WriteLine("     The room has a locked door that can be opened with a key.");
+    Hlpr::WriteLine("            The key can be found somewhere in the room.");
+    Hlpr::WriteLine("           When collected, the door opens automatically.");
+    Hlpr::WriteLine("\n\n       The game is won when the player goes through the door.");
     Hlpr::WriteLine("");
 }
 
@@ -184,7 +185,7 @@ char Menu::GetInputOptions(Menu::ScreenType screen)
 
 void Menu::ExitApplication()
 {
-    Hlpr::WriteLine("Exiting...\n");
+    Hlpr::WriteLine("Console is closing...\n");
     Hlpr::WriteLine("Bye, bye. See you next time.\n");
     Sleep(1000);
     Hlpr::WriteLine("<whisper> Bye.");
@@ -196,7 +197,7 @@ void Menu::ExitApplication()
                                 "Au revoir", "Auf Wiedersehen", "Bless", "Bon voyage"};
     // Shuffle the farewell array randomly
     std::shuffle(std::begin(farewell), std::end(farewell), std::mt19937(std::random_device()()));
-    for (const auto & i : farewell)
+    for (const auto & i : farewell) // Foreach loop
     {
         for (int j = 30; j < 37; ++j)
         {

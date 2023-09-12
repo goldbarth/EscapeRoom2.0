@@ -30,7 +30,7 @@ private:
         Exit,
     };
 
-    Application* app{};
+    Application* app;
 
     void GameOptions(ScreenType screen);
     void ExitOptions(ScreenType screen);
