@@ -143,7 +143,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         char key = (char) _getch();
 
         // If f was pressed then the user has chosen an option
-        if (key == 'f')
+        if (key == 13)
         {
             hasChosen = true;
             switch (currentOption)

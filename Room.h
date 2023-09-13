@@ -16,8 +16,8 @@ class Room
 public:
     Room();
 
-    inline int GetWidth() const { return width;}
-    inline int GetHeight() const { return height;}
+    [[nodiscard]] inline int GetWidth() const { return width;}
+    [[nodiscard]] inline int GetHeight() const { return height;}
 
     void Initialize(const int& width, const int& height, const char& wall, const char& floor);
 
@@ -29,7 +29,7 @@ private:
     std::vector<std::vector<int>> room;
 
     void SetRoomSize(const int& width, const int& height);
-    void DrawRoom(const char& wall, const char& floor);
+    void DrawRoom();
 };
 
 #endif //ESCAPEROOM2_0_ROOM_H

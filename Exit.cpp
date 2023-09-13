@@ -9,19 +9,20 @@ Exit::Exit(Room& room) : room(room), xPos(0), yPos(0)
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Exit::Initialize(const char& exit)
+/// <summary>
+/// Handles the initialization of the exit.
+/// Set the argument to draw the exit open or closed.
+/// </summary>
+void Exit::Initialize(const bool& open)
 {
     SetRandomPosition();
-    DrawExit(exit);
+    DrawExit(false);
 }
 
-void Exit::DrawExit(const char& exit) const
+void Exit::DrawExit(const bool& open) const
 {
-    std::cout << "\x1B[35m";
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
-                             { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetConsoleCursorPos
-    std::cout << exit;
-    std::cout << "\x1B[0m";
+    Game::CharType charType;
+    csptr::WriteAt(xPos, yPos, charType.floor,open ? Color::BgReset : Color::BgGray);
 }
 
 void Exit::SetRandomPosition()

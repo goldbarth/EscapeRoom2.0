@@ -70,9 +70,11 @@ private:
 
     bool HasPlayerKeyCollected();
 
+    static void DrawPromptCommand();
+
     static RoomSize EvaluateRoomSize();
 
-    static void DrawPromptCommand();
+    static int ValidationCheck(const int &min, const int &max);
 };
 
 

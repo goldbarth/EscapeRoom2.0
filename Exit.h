@@ -24,8 +24,8 @@ public:
     [[nodiscard]] inline int GetXPos() const { return xPos; }
     [[nodiscard]] inline int GetYPos() const { return yPos; }
 
-    void Initialize(const char& exit);
-    void DrawExit(const char& exit) const;
+    void Initialize(const bool& open);
+    void DrawExit(const bool& open) const;
 
 private:
     Room& room;

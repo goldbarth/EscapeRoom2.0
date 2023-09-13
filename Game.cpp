@@ -31,6 +31,7 @@ void Game::DrawPromptCommand()
     csptr::ClearScreen();
     csptr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
     csptr::WriteLine("\n\n\n   Enter the room size you want to play in.");
+    csptr::WriteLine("\n       Width: 25 - 35 | Height. 12 - 25");
 }
 
 void Game::InitializeObjects(const RoomSize& roomSize)
@@ -38,7 +39,7 @@ void Game::InitializeObjects(const RoomSize& roomSize)
     csptr::ClearScreen();
     room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);
     key->Initialize(charType.key);
-    exit->Initialize(charType.exit);
+    exit->Initialize(false);
     player->Initialize(charType.player);
 
     GameLoop();
@@ -46,17 +47,13 @@ void Game::InitializeObjects(const RoomSize& roomSize)
 
 RoomSize Game::EvaluateRoomSize()
 {
-    int width;
-    int height;
+    RoomSize roomSize{};
 
     csptr::Write("\n   Enter room width: ");
-    std::cin >> width;
-    csptr::Write("\n   Enter room height: ");
-    std::cin >> height;
+    roomSize.width = ValidationCheck(25, 35);
 
-    RoomSize roomSize{};
-    roomSize.width = width;
-    roomSize.height = height;
+    csptr::Write("\n   Enter room height: ");
+    roomSize.height = ValidationCheck(12, 25);
 
     return roomSize;
 }
@@ -81,8 +78,8 @@ void Game::OpenExit()
     for (int i = 0; i < 2; ++i)
         Beep(1000, 100);
 
-    exit->DrawExit(charType.floor);
     isExitOpen = true;
+    exit->DrawExit(isExitOpen);
 }
 
 void Game::CheckIfPlayerEntersExit()
@@ -99,6 +96,18 @@ void Game::CheckIfPlayerEntersExit()
 
         gameIsRunning = false;
     }
+}
+
+/// <summary>
+/// Insert a value between min and max.
+/// </summary>
+int Game::ValidationCheck(const int& min, const int& max)
+{
+    int value;
+    while(!(std::cin >> value) || value < min || value > max)
+        csptr::Write("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
+
+    return value;
 }
 
 void Game::PlayExitAnimation()

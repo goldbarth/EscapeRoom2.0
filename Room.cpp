@@ -9,7 +9,7 @@ Room::Room() : width(0), height(0) {}
 void Room::Initialize(const int& width, const int& height, const char& wall, const char& floor)
 {
     SetRoomSize(width, height);
-    DrawRoom(wall, floor);
+    DrawRoom();
 }
 
 void Room::SetRoomSize(const int& width, const int& height)
@@ -21,7 +21,7 @@ void Room::SetRoomSize(const int& width, const int& height)
 }
 
 
-void Room::DrawRoom(const char& wall, const char& floor)
+void Room::DrawRoom()
 {
     for (int y = -1; y < height + 1; y++)
     {
@@ -30,13 +30,14 @@ void Room::DrawRoom(const char& wall, const char& floor)
             // first
             if (y == -1 || x == -1 || y == height || x == width)
             {
-                std::cout << wall;
+                csptr::Write(' ', Color::BgDarkGray);
             }
             else
             {
                 int current = room[x][y];
-                if (current == 0) {
-                    std::cout << floor;
+                if (current == 0)
+                {
+                    csptr::Write(' ', Color::BgReset);
                 }
             }
         }
