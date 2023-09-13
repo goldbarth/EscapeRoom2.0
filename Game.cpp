@@ -28,14 +28,14 @@ void Game::Start()
 
 void Game::DrawPromptCommand()
 {
-    Hlpr::ClearScreen();
-    Hlpr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
-    Hlpr::WriteLine("\n\n\n   Enter the room size you want to play in.");
+    csptr::ClearScreen();
+    csptr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
+    csptr::WriteLine("\n\n\n   Enter the room size you want to play in.");
 }
 
 void Game::InitializeObjects(const RoomSize& roomSize)
 {
-    Hlpr::ClearScreen();
+    csptr::ClearScreen();
     room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);
     key->Initialize(charType.key);
     exit->Initialize(charType.exit);
@@ -49,9 +49,9 @@ RoomSize Game::EvaluateRoomSize()
     int width;
     int height;
 
-    Hlpr::Write("\n   Enter room width: ");
+    csptr::Write("\n   Enter room width: ");
     std::cin >> width;
-    Hlpr::Write("\n   Enter room height: ");
+    csptr::Write("\n   Enter room height: ");
     std::cin >> height;
 
     RoomSize roomSize{};
@@ -105,20 +105,20 @@ void Game::PlayExitAnimation()
 {
     // ...@
     std::string result = "..." + std::string(1, charType.player);
-    Hlpr::WriteAt(player->GetXPos(), player->GetYPos(), result, ColorCode::light_green());
+    csptr::WriteAt(player->GetXPos(), player->GetYPos(), result, Color::LightGreen);
 }
 
 void Game::DrawGameEndText()
 {
     // Set the text compared to the room size in the middle of the room.
     SetCursorPos(0, 0);
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 6, "     CONGRATULATIONS!", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 5, " YOU ESCAPED THE DARKNESS.", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 4, "  NOW YOU WILL ENTER THE", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 3, "         UNKNOWN.", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 2, "  GOOD LUCK, ADVENTURER.", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 1, "", ColorCode::light_yellow());
-    Hlpr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5), "Press any key to continue.", ColorCode::white());
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 6, "     CONGRATULATIONS!", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 5, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 4, "  NOW YOU WILL ENTER THE", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 3, "         UNKNOWN.", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 2, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 1, "", Color::LightYellow);
+    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5), "Press any key to continue.", Color::White);
     (void)_getch(); //Explicitly ignore return value
 }
 

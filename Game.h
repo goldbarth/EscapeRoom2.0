@@ -9,7 +9,7 @@
 #include <memory>
 #include "Application.h"
 #include "Player.h"
-#include "Hlpr.h"
+#include "csptr.h"
 #include "Room.h"
 #include "Exit.h"
 #include "Key.h"

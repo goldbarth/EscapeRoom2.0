@@ -100,7 +100,7 @@ void Player::GetRandomStartPos()
 
 void Player::SetPos(const char& symbol) const
 {
-    Hlpr::WriteAt(xPos, yPos, symbol, ColorCode::light_green());
+    csptr::WriteAt(xPos, yPos, symbol, Color::LightGreen);
 }
 
 

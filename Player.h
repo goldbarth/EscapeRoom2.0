@@ -9,7 +9,7 @@
 #include <conio.h>
 #include <memory>
 #include <ctime>
-#include "Hlpr.h"
+#include "csptr.h"
 #include "Game.h"
 #include "Exit.h"
 #include "Key.h"

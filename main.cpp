@@ -1,9 +1,9 @@
 #include "Application.h"
-#include "Hlpr.h"
+#include "csptr.h"
 
 int main()
 {
-    Hlpr::ShowConsoleCursor(false);
+    csptr::ShowConsoleCursor(false);
     Application app;
     app.Run();
 }

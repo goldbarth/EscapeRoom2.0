@@ -9,7 +9,7 @@
 #include <memory>
 #include "Windows.h"
 #include "Game.h"
-#include "Hlpr.h"
+#include "csptr.h"
 
 class Game;
 
