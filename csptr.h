@@ -2,7 +2,6 @@
 // Created by goldbarth on 10.09.2023.
 //
 
-
 #ifndef ESCAPEROOM2_0_CSPTR_H
 #define ESCAPEROOM2_0_CSPTR_H
 

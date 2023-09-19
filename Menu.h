@@ -33,7 +33,7 @@ private:
     Application* app;
 
     void GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine);
-    void ExitOptions(const ScreenType& screen);
+    void ExitOptions();
 
     static void DrawTitleScreen();
     static void DrawOutroScreen();
@@ -41,7 +41,7 @@ private:
     static void DrawExitOptions();
     static void ExitApplication();
 
-    static char GetInputOptions(const ScreenType& screen);
+    static char GetInputOptions();
 };
 
 #endif //ESCAPEROOM2_0_MAINMENU_H

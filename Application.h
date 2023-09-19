@@ -8,8 +8,8 @@
 #include <iostream>
 #include <memory>
 #include "Windows.h"
-#include "Game.h"
 #include "csptr.h"
+#include "Game.h"
 
 class Game;
 
@@ -28,7 +28,7 @@ public:
     inline ~Application() = default;
 
     void Run();
-    void EnterOutro();
+    void StartOutro();
     void SetState(const GameState& state);
 
 private:
@@ -37,9 +37,9 @@ private:
 
     [[noreturn]] void GameLoop();
 
-    void MainMenu();
-    void EnterGame();
-    void EnterTutorial();
+    void StartMainMenu();
+    void StartGame();
+    void StartTutorial();
     void ExitApplication();
 };
 

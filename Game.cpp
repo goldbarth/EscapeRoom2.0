@@ -133,7 +133,7 @@ void Game::DrawGameEndText()
 
 void Game::DrawWinScreen()
 {
-    app.EnterOutro();
+    app.StartOutro();
 }
 
 bool Game::IsPlayerOnExit()

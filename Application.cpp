@@ -21,13 +21,13 @@ void Application::Run()
         switch(gameState)
         {
             case GameState::MainMenu:
-                MainMenu();
+                StartMainMenu();
                 break;
             case GameState::Game:
-                EnterGame();
+                StartGame();
                 break;
             case GameState::Tutorial:
-                EnterTutorial();
+                StartTutorial();
                 break;
             case GameState::Exit:
                 ExitApplication();
@@ -36,25 +36,25 @@ void Application::Run()
     }
 }
 
-void Application::MainMenu()
+void Application::StartMainMenu()
 {
     Menu menu(this);
     menu.InitializeMainMenu();
 }
 
-void Application::EnterTutorial()
+void Application::StartTutorial()
 {
     Menu menu(this);
     menu.InitializeTutorial();
 }
 
-void Application::EnterOutro()
+void Application::StartOutro()
 {
     Menu menu(this);
     menu.InitializeOutro();
 }
 
-void Application::EnterGame()
+void Application::StartGame()
 {
     game->Start();
 }

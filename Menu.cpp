@@ -9,7 +9,7 @@
 void Menu::InitializeMainMenu()
 {
     DrawTitleScreen();
-    std::vector<std::string> options = {"Start Game", "Exit Application", "Tutorial"};
+    std::vector<std::string> options = {"Start Game", "Exit Application", "StartTutorial"};
     GameOptions(Title, options, 16);
 }
 
@@ -30,7 +30,7 @@ void Menu::InitializeTutorial()
 void Menu::InitializeExit()
 {
     DrawExitOptions();
-    ExitOptions(Exit);
+    ExitOptions();
 }
 
 void Menu::DrawExitOptions()
@@ -119,7 +119,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
             currentLine++;
         }
 
-        // Print menu options with highlighting
+        // Draw menu options with highlighting
         for (int i = 0; i < numOptions; ++i)
         {
             // Set cursor position to the beginning of the line
@@ -131,7 +131,8 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
                 csptr::SetConsoleColor(Color::BgDarkGray);
                 csptr::SetConsoleColor(Color::Black);
                 csptr::WriteLine(">" + options[i] + "\x1B[0m");
-            } else
+            }
+            else
             {
                 csptr::SetConsoleColor(Color::BgReset);
                 csptr::WriteLine(" " + options[i] + "\x1B[0m");
@@ -140,9 +141,9 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
             currentLine++;
         }
 
-        char key = (char) _getch();
+        char key = (char)_getch();
 
-        // If f was pressed then the user has chosen an option
+        // If enter was pressed then the user has chosen an option
         if (key == 13)
         {
             hasChosen = true;
@@ -173,10 +174,9 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
     }
 }
 
-
-void Menu::ExitOptions(const ScreenType& screen)
+void Menu::ExitOptions()
 {
-    auto inputKey = GetInputOptions(screen);
+    auto inputKey = GetInputOptions();
     switch(inputKey)
     {
         case 'y':
@@ -186,12 +186,12 @@ void Menu::ExitOptions(const ScreenType& screen)
             app->SetState(GameState::MainMenu);
             break;
         default:
-            std::cerr << "Invalid input. Something went wrong at GameOptions." << std::endl;
+            std::cerr << "Invalid input. Something went wrong at Exit Options." << std::endl;
             break;
     }
 }
 
-char Menu::GetInputOptions(const ScreenType& screen)
+char Menu::GetInputOptions()
 {
     char inputKey;
     bool valid;
@@ -200,19 +200,7 @@ char Menu::GetInputOptions(const ScreenType& screen)
     {
         std::cin >> inputKey;
 
-        switch (screen)
-        {
-            case Title:
-                valid = inputKey == '1' || inputKey == '2' || inputKey == '3';
-                break;
-            case Default:
-                valid = inputKey == '1' || inputKey == '2';
-                break;
-            case Exit:
-                valid = inputKey == 'y' || inputKey == 'n';
-                break;
-        }
-
+        valid = inputKey == 'y' || inputKey == 'n';
         if(!valid) csptr::WriteLine("Invalid input. Please try again.\n");
         else csptr::WriteLine("");
 
@@ -237,7 +225,7 @@ void Menu::ExitApplication()
     std::shuffle(std::begin(farewell), std::end(farewell), std::mt19937(std::random_device()()));
     for (const auto & i : farewell) // Foreach loop
     {
-        for (int j = 30; j < 37; ++j)
+        for (int j = 13; j < 37; ++j)
         {
             // Range from 0 to 79 columns and 0 to 23 rows
             int k = rand() % 80;
