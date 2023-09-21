@@ -2,14 +2,20 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <Windows.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Key.h"
 
-
-Key::Key(Room& room) : room(room), xPos(0), yPos(0)
+Key::Key(Room& room) : room(room)
 {
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
+
+Key::~Key()
+= default;
 
 void Key::Initialize(const char& key)
 {

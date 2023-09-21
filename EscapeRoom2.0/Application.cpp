@@ -9,7 +9,10 @@ Application::Application() : game(std::make_unique<Game>(*this)),
         gameState(GameState::MainMenu)
 {}
 
-void Application::Run()
+Application::~Application()
+= default;
+
+[[noreturn]] void Application::Run()
 {
     GameLoop();
 }
@@ -54,7 +57,7 @@ void Application::StartOutro()
     menu.InitializeOutro();
 }
 
-void Application::StartGame()
+void Application::StartGame() const
 {
     game->Start();
 }

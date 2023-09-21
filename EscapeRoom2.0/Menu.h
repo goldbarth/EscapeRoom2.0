@@ -5,22 +5,20 @@
 #ifndef ESCAPEROOM2_0_MAINMENU_H
 #define ESCAPEROOM2_0_MAINMENU_H
 
-#include <Windows.h>
-#include <algorithm>
-#include <iostream>
+
 #include "Application.h"
 #include "csptr.h"
 
 class Menu
 {
 public:
-    inline explicit Menu(Application* app) : app(app) {}
-    inline ~Menu() = default;
+    explicit Menu(Application* app) : app(app) {}
+    ~Menu();
 
-    void InitializeMainMenu();
-    void InitializeTutorial();
-    void InitializeOutro();
-    void InitializeExit();
+    void InitializeMainMenu() const;
+    void InitializeTutorial() const;
+    void InitializeOutro() const;
+    void InitializeExit() const;
 
 private:
     enum ScreenType
@@ -32,8 +30,8 @@ private:
 
     Application* app;
 
-    void GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine);
-    void ExitOptions();
+    void GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine) const;
+    void ExitOptions() const;
 
     static void DrawTitleScreen();
     static void DrawOutroScreen();

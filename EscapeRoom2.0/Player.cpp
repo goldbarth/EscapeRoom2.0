@@ -2,8 +2,12 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <Windows.h>
+#include <iostream>
+#include <conio.h>
+#include <ctime>
 #include "Player.h"
-
+#include "csptr.h"
 
 Player::Player(Game& game, Room& room, Key& key) : game(game), room(room),
         key(key), keyIsCollected(false), xPos(0), yPos(0)
@@ -64,7 +68,7 @@ void Player::UpdatePos(const int& x, const int& y, const char& symbol)
     SetPos(symbol);
 }
 
-bool Player::IsNotAtRightWall(const int& x, const int& y)
+bool Player::IsNotAtRightWall(const int& x, const int& y) const
 {
     return (x != room.GetWidth() + 1 || y == 0 || game.IsPlayerOnExit());
 }
@@ -79,7 +83,7 @@ bool Player::IsNewPosWall(const int& x, const int& y)
     return x <= 0 || y <= 0;
 }
 
-bool Player::IsThisPosKeyPos()
+bool Player::IsThisPosKeyPos() const
 {
     return xPos == key.GetXPos() && yPos == key.GetYPos();
 }

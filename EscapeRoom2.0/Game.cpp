@@ -2,18 +2,20 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <Windows.h>
+#include <iostream>
+#include <conio.h>
+#include "csptr.h"
 #include "Game.h"
 
-
 // Reference to the Application class is important to close the game loop.
-Game::Game(Application& app) : app(app), room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
-        exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key))
-{
-    charType = CharType();
+Game::Game(Application& app) : room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
+                    exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key)), app(app),
+                    charType(CharType())    
+{ }
 
-    gameIsRunning = true;
-    isExitOpen = false;
-}
+Game::~Game()
+= default;
 
 void Game::Start()
 {
@@ -37,7 +39,7 @@ void Game::DrawPromptCommand()
 void Game::InitializeObjects(const RoomSize& roomSize)
 {
     csptr::ClearScreen();
-    room->Initialize(roomSize.width, roomSize.height, charType.wall, charType.floor);
+    room->Initialize(roomSize.width, roomSize.height);
     key->Initialize(charType.key);
     exit->Initialize(false);
     player->Initialize(charType.player);
@@ -47,7 +49,7 @@ void Game::InitializeObjects(const RoomSize& roomSize)
 
 RoomSize Game::EvaluateRoomSize()
 {
-    RoomSize roomSize{};
+    RoomSize roomSize;
 
     csptr::Write("\n   Enter room width: ");
     roomSize.width = ValidationCheck(25, 35);
@@ -110,14 +112,14 @@ int Game::ValidationCheck(const int& min, const int& max)
     return value;
 }
 
-void Game::PlayExitAnimation()
+void Game::PlayExitAnimation() const
 {
     // ...@
     std::string result = "..." + std::string(1, charType.player);
     csptr::WriteAt(player->GetXPos(), player->GetYPos(), result, Color::LightGreen);
 }
 
-void Game::DrawGameEndText()
+void Game::DrawGameEndText() const
 {
     // Set the text compared to the room size in the middle of the room.
     SetCursorPos(0, 0);
@@ -131,17 +133,17 @@ void Game::DrawGameEndText()
     (void)_getch(); //Explicitly ignore return value
 }
 
-void Game::DrawWinScreen()
+void Game::DrawWinScreen() const
 {
     app.StartOutro();
 }
 
-bool Game::IsPlayerOnExit()
+bool Game::IsPlayerOnExit() const
 {
     return (player->GetXPos() + 1 == exit->GetXPos() && player->GetYPos() == exit->GetYPos());
 }
 
-bool Game::HasPlayerKeyCollected()
+bool Game::HasPlayerKeyCollected() const
 {
     return player->HasKey();
 }

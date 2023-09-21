@@ -2,6 +2,8 @@
 // Created by goldbarth on 10.09.2023.
 //
 
+#include <Windows.h>
+#include <iostream>
 #include "csptr.h"
 
 void csptr::Write(const std::string &text)

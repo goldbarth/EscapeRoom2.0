@@ -5,12 +5,8 @@
 #ifndef ESCAPEROOM2_0_CSPTR_H
 #define ESCAPEROOM2_0_CSPTR_H
 
-#include <Windows.h>
-#include <iostream>
 #include <string>
 
-
-// ANSI escape codes for text and background colors
 enum class Color : int
 {
     Black = 30,

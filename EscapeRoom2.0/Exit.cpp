@@ -2,12 +2,19 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <cstdlib>
+#include <ctime>
+#include "csptr.h"
+#include "Game.h"
 #include "Exit.h"
 
-Exit::Exit(Room& room) : room(room), xPos(0), yPos(0)
+Exit::Exit(Room& room) : room(room)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
+
+Exit::~Exit()
+= default;
 
 /// <summary>
 /// Handles the initialization of the exit.
@@ -16,7 +23,7 @@ Exit::Exit(Room& room) : room(room), xPos(0), yPos(0)
 void Exit::Initialize(const bool& open)
 {
     SetRandomPosition();
-    DrawExit(false);
+    DrawExit(open);
 }
 
 void Exit::DrawExit(const bool& open) const

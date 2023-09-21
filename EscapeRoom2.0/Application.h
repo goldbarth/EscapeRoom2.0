@@ -5,10 +5,8 @@
 #ifndef ESCAPEROOM2_0_APPLICATION_H
 #define ESCAPEROOM2_0_APPLICATION_H
 
-#include <iostream>
+
 #include <memory>
-#include "Windows.h"
-#include "csptr.h"
 #include "Game.h"
 
 class Game;
@@ -25,7 +23,7 @@ class Application
 {
 public:
     Application();
-    inline ~Application() = default;
+    ~Application();
 
     void Run();
     void StartOutro();
@@ -38,7 +36,7 @@ private:
     [[noreturn]] void GameLoop();
 
     void StartMainMenu();
-    void StartGame();
+    void StartGame() const;
     void StartTutorial();
     void ExitApplication();
 };

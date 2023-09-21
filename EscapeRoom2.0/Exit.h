@@ -5,14 +5,8 @@
 #ifndef ESCAPEROOM2_0_EXIT_H
 #define ESCAPEROOM2_0_EXIT_H
 
-#include <Windows.h>
-#include <iostream>
-#include <cstdlib>
-#include <memory>
-#include <ctime>
-#include "Room.h"
-#include "Game.h"
 
+#include "Room.h"
 
 class Room;
 
@@ -20,10 +14,12 @@ class Exit
 {
 public:
     explicit Exit(Room& room);
-    inline ~Exit() = default;
+    ~Exit();
 
-    [[nodiscard]] inline int GetXPos() const { return xPos; }
-    [[nodiscard]] inline int GetYPos() const { return yPos; }
+    
+    int GetXPos() const { return xPos; }
+    
+    int GetYPos() const { return yPos; }
 
     void Initialize(const bool& open);
     void DrawExit(const bool& open) const;
@@ -31,8 +27,8 @@ public:
 private:
     Room& room;
 
-    int xPos;
-    int yPos;
+    int xPos = 0;
+    int yPos = 0;
 
     void SetRandomPosition();
 };

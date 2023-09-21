@@ -5,13 +5,8 @@
 #ifndef ESCAPEROOM2_0_KEY_H
 #define ESCAPEROOM2_0_KEY_H
 
-#include <Windows.h>
-#include <iostream>
-#include <cstdlib>
-#include <memory>
-#include <ctime>
-#include "Room.h"
 
+#include "Room.h"
 
 class Room;
 
@@ -19,18 +14,18 @@ class Key
 {
 public:
     explicit Key(Room& room);
-    inline ~Key() = default;
+    ~Key();
 
-    [[nodiscard]] inline int GetXPos() const { return xPos; }
-    [[nodiscard]] inline int GetYPos() const { return yPos; }
+    int GetXPos() const { return xPos; }
+    int GetYPos() const { return yPos; }
 
     void Initialize(const char& key);
 
 private:
     Room& room;
 
-    int xPos;
-    int yPos;
+    int xPos = 0;
+    int yPos = 0;
 
     void DrawKey(const char& key) const;
     void SetRandomPosition();

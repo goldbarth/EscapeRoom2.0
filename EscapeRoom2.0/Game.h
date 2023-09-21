@@ -5,20 +5,18 @@
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
 
-#include <iostream>
+
 #include <memory>
 #include "Application.h"
 #include "Player.h"
-#include "csptr.h"
 #include "Room.h"
 #include "Exit.h"
 #include "Key.h"
 
-
 struct RoomSize
 {
-    int width;
-    int height;
+    int width = 0;
+    int height = 0;
 };
 
 class Application;
@@ -31,11 +29,11 @@ class Game
 {
 public:
     explicit Game(Application& app);
-    inline ~Game() = default;
+    ~Game();
 
     void Start();
 
-    bool IsPlayerOnExit();
+    bool IsPlayerOnExit() const;
 
     struct CharType
     {
@@ -62,13 +60,13 @@ private:
 
     void GameLoop();
     void OpenExit();
-    void DrawWinScreen();
+    void DrawWinScreen() const;
     void CheckIfExitOpens();
     void CheckIfPlayerEntersExit();
-    void PlayExitAnimation();
-    void DrawGameEndText();
+    void PlayExitAnimation() const;
+    void DrawGameEndText() const;
 
-    bool HasPlayerKeyCollected();
+    bool HasPlayerKeyCollected() const;
 
     static void DrawPromptCommand();
 

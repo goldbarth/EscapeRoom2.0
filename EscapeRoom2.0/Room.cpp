@@ -2,11 +2,13 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#include <iostream>
+#include "csptr.h"
 #include "Room.h"
 
-Room::Room() : width(0), height(0) {}
+Room::Room() = default;
 
-void Room::Initialize(const int& width, const int& height, const char& wall, const char& floor)
+void Room::Initialize(const int& width, const int& height)
 {
     SetRoomSize(width, height);
     DrawRoom();
@@ -21,7 +23,7 @@ void Room::SetRoomSize(const int& width, const int& height)
 }
 
 
-void Room::DrawRoom()
+void Room::DrawRoom() const
 {
     for (int y = -1; y < height + 1; y++)
     {

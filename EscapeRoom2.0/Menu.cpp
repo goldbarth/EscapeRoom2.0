@@ -2,32 +2,38 @@
 // Created by goldbarth on 11.09.2023.
 //
 
+#include <Windows.h>
+#include <algorithm>
+#include <iostream>
+#include <conio.h>
 #include <random>
 #include "Menu.h"
 
+Menu::~Menu()
+= default;
 
-void Menu::InitializeMainMenu()
+void Menu::InitializeMainMenu() const
 {
     DrawTitleScreen();
-    std::vector<std::string> options = {"Start Game", "Exit Application", "StartTutorial"};
+    std::vector<std::string> options = {"Start Game", "Exit Application", "Start Tutorial"};
     GameOptions(Title, options, 16);
 }
 
-void Menu::InitializeOutro()
+void Menu::InitializeOutro() const
 {
     DrawOutroScreen();
     std::vector<std::string> options = {"Main Menu", "Exit Application"};
     GameOptions(Default, options, 18);
 }
 
-void Menu::InitializeTutorial()
+void Menu::InitializeTutorial() const
 {
     DrawTutorial();
     std::vector<std::string> options = {"Main Menu", "Exit Application"};
     GameOptions(Default, options, 18);
 }
 
-void Menu::InitializeExit()
+void Menu::InitializeExit() const
 {
     DrawExitOptions();
     ExitOptions();
@@ -102,9 +108,9 @@ void Menu::DrawTutorial()
     csptr::WriteLine("");
 }
 
-void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine)
+void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine) const
 {
-    const int numOptions = (int)options.size();
+    const int numOptions = static_cast<int>(options.size());
     int currentLine = initialLine;
     int currentOption = 0;
     bool hasChosen = false;
@@ -141,7 +147,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
             currentLine++;
         }
 
-        char key = (char)_getch();
+        char key = static_cast<char>(_getch());
 
         // If enter was pressed then the user has chosen an option
         if (key == 13)
@@ -174,7 +180,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
     }
 }
 
-void Menu::ExitOptions()
+void Menu::ExitOptions() const
 {
     auto inputKey = GetInputOptions();
     switch(inputKey)
@@ -209,7 +215,7 @@ char Menu::GetInputOptions()
     return inputKey;
 }
 
-void Menu::ExitApplication()
+[[noreturn]]void Menu::ExitApplication()
 {
     csptr::WriteLine("Console is closing...\n");
     csptr::WriteLine("Bye, bye. See you next time.\n");
