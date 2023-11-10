@@ -8,7 +8,7 @@
 #include "Game.h"
 #include "Exit.h"
 
-Exit::Exit(Room& room) : room(room)
+Exit::Exit(Room& room) : room(&room)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
@@ -34,8 +34,8 @@ void Exit::DrawExit(const bool& open) const
 
 void Exit::SetRandomPosition()
 {
-    xPos = room.GetWidth() + 1;
-    yPos = rand() % (room.GetHeight() - 1) + 2;
+    xPos = room->GetWidth() + 1;
+    yPos = rand() % (room->GetHeight() - 1) + 2;
 }
 
 

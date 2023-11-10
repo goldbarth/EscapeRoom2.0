@@ -3,25 +3,25 @@
 //
 
 #include <iostream>
+
 #include "csptr.h"
 #include "Room.h"
 
 Room::Room() = default;
 
-void Room::Initialize(const int& width, const int& height)
+void Room::Initialize(const int& roomWidth, const int& roomHeight)
 {
-    SetRoomSize(width, height);
+    SetRoomSize(roomWidth, roomHeight);
     DrawRoom();
 }
 
-void Room::SetRoomSize(const int& width, const int& height)
+void Room::SetRoomSize(const int& roomWidth, const int& roomHeight)
 {
-    this->width = width;
-    this->height = height;
+    this->width = roomWidth;
+    this->height = roomHeight;
 
-    room.resize(width, std::vector<int>(height, 0));
+    room.resize(roomWidth, std::vector<int>(roomHeight, 0));
 }
-
 
 void Room::DrawRoom() const
 {
@@ -29,17 +29,17 @@ void Room::DrawRoom() const
     {
         for (int x = -1; x < width + 1; x++)
         {
-            // first
+            constexpr char floor = ' ';
             if (y == -1 || x == -1 || y == height || x == width)
             {
-                csptr::Write(' ', Color::BgDarkGray);
+                csptr::Write(floor, Color::BgDarkGray);
             }
             else
             {
                 int current = room[x][y];
                 if (current == 0)
                 {
-                    csptr::Write(' ', Color::BgReset);
+                    csptr::Write(floor, Color::BgReset);
                 }
             }
         }

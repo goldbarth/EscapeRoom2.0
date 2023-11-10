@@ -5,8 +5,8 @@
 #ifndef ESCAPEROOM2_0_GAME_H
 #define ESCAPEROOM2_0_GAME_H
 
-
 #include <memory>
+
 #include "Application.h"
 #include "Player.h"
 #include "Room.h"
@@ -50,7 +50,7 @@ private:
     std::unique_ptr<Exit> exit;
     std::unique_ptr<Player> player;
 
-    Application& app;
+    Application* app;
     CharType charType;
 
     bool gameIsRunning = true;

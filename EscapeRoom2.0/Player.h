@@ -5,7 +5,6 @@
 #ifndef ESCAPEROOM2_0_PLAYER_H
 #define ESCAPEROOM2_0_PLAYER_H
 
-
 #include "Game.h"
 #include "Exit.h"
 #include "Key.h"
@@ -20,7 +19,7 @@ public:
     explicit Player(Game& game, Room& room, Key& key);
 
     void Initialize(const char& player);
-    void UpdatePos(const int& x, const int& y, const char& symbol);
+    void UpdatePos(const int& x, const int& y, const char& symbol) const;
     void Move(const char& player);
 
     bool HasKey();
@@ -31,19 +30,19 @@ public:
     void SetKeyIsCollected(const bool& value) { keyIsCollected = value; }
 
 private:
-    Game& game;
-    Room& room;
-    Key& key;
+    std::unique_ptr<Game> game;
+    std::unique_ptr<Room> room;
+    std::unique_ptr<Key> key;
 
     bool keyIsCollected;
 
     int xPos;
     int yPos;
 
-    constexpr static char up = 'w';
-    constexpr static char down = 's';
-    constexpr static char left = 'a';
-    constexpr static char right = 'd';
+    constexpr static int UP = 72;
+    constexpr static int DOWN = 80;
+    constexpr static int LEFT = 75;
+    constexpr static int RIGHT = 77;
 
     static void PlayStopSound();
     static bool IsNewPosWall(const int& x, const int& y);

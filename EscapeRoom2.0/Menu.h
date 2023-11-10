@@ -23,11 +23,12 @@ public:
 private:
     enum ScreenType
     {
-        Title,
-        Default,
-        Exit,
+        TITLE,
+        DEFAULT,
+        EXIT,
     };
 
+    // The raw pointer is used because the application is responsible for the lifetime of the menu.
     Application* app;
 
     void GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine) const;

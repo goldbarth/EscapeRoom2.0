@@ -8,7 +8,7 @@
 #include <ctime>
 #include "Key.h"
 
-Key::Key(Room& room) : room(room)
+Key::Key(Room& room) : room(&room)
 {
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -34,7 +34,7 @@ void Key::DrawKey(const char& key) const
 
 void Key::SetRandomPosition()
 {
-    xPos = std::rand() % (room.GetWidth() - 1) + 1;
-    yPos = std::rand() % (room.GetHeight() - 1) + 1;
+    xPos = std::rand() % (room->GetWidth() - 1) + 1;
+    yPos = std::rand() % (room->GetHeight() - 1) + 1;
 }
 

@@ -22,7 +22,7 @@ public:
     void Initialize(const char& key);
 
 private:
-    Room& room;
+    std::unique_ptr<Room> room;
 
     int xPos = 0;
     int yPos = 0;

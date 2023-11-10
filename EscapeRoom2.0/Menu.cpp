@@ -7,30 +7,37 @@
 #include <iostream>
 #include <conio.h>
 #include <random>
+
 #include "Menu.h"
 
 Menu::~Menu()
 = default;
 
+constexpr char CONFIRM_KEY = 'y';
+constexpr char CANCEL_KEY = 'n';
+
 void Menu::InitializeMainMenu() const
 {
     DrawTitleScreen();
-    std::vector<std::string> options = {"Start Game", "Exit Application", "Start Tutorial"};
-    GameOptions(Title, options, 16);
+    std::vector<std::string> options = {"Start Game", "Exit Application", "Rules"};
+    constexpr int initialLine = 16; // Initial line where the options are displayed, depending on the screen size.
+    GameOptions(TITLE, options, initialLine);
 }
 
 void Menu::InitializeOutro() const
 {
     DrawOutroScreen();
     std::vector<std::string> options = {"Main Menu", "Exit Application"};
-    GameOptions(Default, options, 18);
+    constexpr int initialLine = 18;
+    GameOptions(DEFAULT, options, initialLine);
 }
 
 void Menu::InitializeTutorial() const
 {
     DrawTutorial();
     std::vector<std::string> options = {"Main Menu", "Exit Application"};
-    GameOptions(Default, options, 18);
+    constexpr int initialLine = 18;
+    GameOptions(DEFAULT, options, initialLine);
 }
 
 void Menu::InitializeExit() const
@@ -96,7 +103,7 @@ void Menu::DrawTutorial()
     csptr::ClearScreen();
     csptr::WriteLine("\n\n                   ******** ESCAPE ROOM ********");
     csptr::WriteLine("                    --------------------------");
-    csptr::WriteLine("                    ******** TUTORIAL ********");
+    csptr::WriteLine("                    ********* RULES *********");
     csptr::WriteLine("\n     At the start, the size of the Escape Room is determined.");
     csptr::WriteLine("                  Height and width are set by input.");
     csptr::WriteLine("\n    The character moves by pressing the arrow keys: ^, v, <, >.");
@@ -117,11 +124,14 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
 
     while (!hasChosen)
     {
+        int startPos = 0;
         // Clear only the part of the console where the options are displayed
         for (int i = 0; i < numOptions + 1; ++i)
         {
-            csptr::SetConsoleCursorPos(0, currentLine);
-            csptr::Write(std::string(80, ' '));
+            constexpr int charCount = 80; // Number of characters in a line for padding
+            constexpr char spaceChar = ' ';
+            csptr::SetConsoleCursorPos(startPos, currentLine);
+            csptr::Write(std::string(charCount, spaceChar));
             currentLine++;
         }
 
@@ -129,7 +139,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         for (int i = 0; i < numOptions; ++i)
         {
             // Set cursor position to the beginning of the line
-            csptr::SetConsoleCursorPos(0, currentLine);
+            csptr::SetConsoleCursorPos(startPos, currentLine);
 
             // Set background color to yellow if the option is selected
             if (i == currentOption)
@@ -150,19 +160,20 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         char key = static_cast<char>(_getch());
 
         // If enter was pressed then the user has chosen an option
-        if (key == 13)
+        constexpr int keyCodeEnter = 13;
+        if (key == keyCodeEnter)
         {
             hasChosen = true;
             switch (currentOption)
             {
                 case 0:
-                    app->SetState(screen == Title ? GameState::Game : GameState::MainMenu);
+                    app->SetState(screen == TITLE ? GameState::GAME : GameState::MAIN_MENU);
                     break;
                 case 1:
-                    app->SetState(GameState::Exit);
+                    app->SetState(GameState::EXIT);
                     break;
                 case 2:
-                    app->SetState(GameState::Tutorial);
+                    app->SetState(GameState::TUTORIAL);
                     break;
                 default:
                     std::cerr << "Invalid input. Something went wrong at GameOptions." << std::endl;
@@ -170,10 +181,13 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
             }
         }
 
-        if (key == 'w' && currentOption > 0)
+        constexpr int keyUp = 72;
+        constexpr int keyDown = 80;
+        
+        if (key == keyUp && currentOption > 0)
             currentOption--;
 
-        if (key == 's' && currentOption < numOptions - 1)
+        if (key == keyDown && currentOption < numOptions - 1)
             currentOption++;
 
         currentLine = initialLine;
@@ -182,14 +196,14 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
 
 void Menu::ExitOptions() const
 {
-    auto inputKey = GetInputOptions();
+    const auto inputKey = GetInputOptions();
     switch(inputKey)
     {
-        case 'y':
+        case CONFIRM_KEY:
             ExitApplication();
             break;
-        case 'n':
-            app->SetState(GameState::MainMenu);
+        case CANCEL_KEY:
+            app->SetState(GameState::MAIN_MENU);
             break;
         default:
             std::cerr << "Invalid input. Something went wrong at Exit Options." << std::endl;
@@ -206,7 +220,7 @@ char Menu::GetInputOptions()
     {
         std::cin >> inputKey;
 
-        valid = inputKey == 'y' || inputKey == 'n';
+        valid = inputKey == CONFIRM_KEY || inputKey == CANCEL_KEY;
         if(!valid) csptr::WriteLine("Invalid input. Please try again.\n");
         else csptr::WriteLine("");
 
@@ -231,11 +245,12 @@ char Menu::GetInputOptions()
     std::shuffle(std::begin(farewell), std::end(farewell), std::mt19937(std::random_device()()));
     for (const auto & i : farewell) // Foreach loop
     {
+        // Actually the numbers 13 and 37 are not random, but they are the best numbers. you know (*wink NERD).
         for (int j = 13; j < 37; ++j)
         {
             // Range from 0 to 79 columns and 0 to 23 rows
-            int k = rand() % 80;
-            int n = rand() % 24;
+            const int k = rand() % 80;
+            const int n = rand() % 24;
 
             csptr::WriteLineAt(k, n, i, std::to_string(j));
             Beep(10 * k, 100);

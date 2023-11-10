@@ -25,7 +25,7 @@ public:
     void DrawExit(const bool& open) const;
 
 private:
-    Room& room;
+    std::unique_ptr<Room> room;
 
     int xPos = 0;
     int yPos = 0;

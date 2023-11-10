@@ -6,7 +6,7 @@
 #include "Menu.h"
 
 Application::Application() : game(std::make_unique<Game>(*this)),
-        gameState(GameState::MainMenu)
+                                gameState(GameState::MAIN_MENU)
 {}
 
 Application::~Application()
@@ -14,58 +14,53 @@ Application::~Application()
 
 [[noreturn]] void Application::Run()
 {
-    GameLoop();
+    StateLoop();
 }
 
-[[noreturn]] void Application::GameLoop()
+[[noreturn]] void Application::StateLoop()
 {
     while (true)
     {
         switch(gameState)
         {
-        case GameState::MainMenu:
-            StartMainMenu();
+        case GameState::MAIN_MENU:
+            InitializeState(MenuType::MAIN_MENU);
             break;
-        case GameState::Game:
-            StartGame();
+        case GameState::GAME:
+            game->Start();
             break;
-        case GameState::Tutorial:
-            StartTutorial();
+        case GameState::TUTORIAL:
+            InitializeState(MenuType::TUTORIAL);
             break;
-        case GameState::Exit:
-            ExitApplication();
+        case GameState::EXIT:
+            InitializeState(MenuType::EXIT);
             break;
         }
     }
 }
 
-void Application::StartMainMenu()
+void Application::InitializeState(const MenuType menuType)
 {
-    Menu menu(this);
-    menu.InitializeMainMenu();
-}
-
-void Application::StartTutorial()
-{
-    Menu menu(this);
-    menu.InitializeTutorial();
+    const Menu menu(this);
+    switch (menuType) {
+    case MenuType::MAIN_MENU:
+        menu.InitializeMainMenu();
+        break;
+    case MenuType::TUTORIAL:
+        menu.InitializeTutorial();
+        break;
+    case MenuType::OUTRO:
+        menu.InitializeOutro();
+        break;
+    case MenuType::EXIT:
+        menu.InitializeExit();
+        break;
+    }
 }
 
 void Application::StartOutro()
 {
-    Menu menu(this);
-    menu.InitializeOutro();
-}
-
-void Application::StartGame() const
-{
-    game->Start();
-}
-
-void Application::ExitApplication()
-{
-    Menu menu(this);
-    menu.InitializeExit();
+    InitializeState(MenuType::OUTRO);
 }
 
 void Application::SetState(const GameState& state)

@@ -5,12 +5,13 @@
 #include <Windows.h>
 #include <iostream>
 #include <conio.h>
+
 #include "csptr.h"
 #include "Game.h"
 
 // Reference to the Application class is important to close the game loop.
 Game::Game(Application& app) : room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
-                    exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key)), app(app),
+                    exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key)), app(&app),
                     charType(CharType())    
 { }
 
@@ -50,12 +51,16 @@ void Game::InitializeObjects(const RoomSize& roomSize)
 RoomSize Game::EvaluateRoomSize()
 {
     RoomSize roomSize;
+    constexpr int minWidth = 25;
+    constexpr int maxWidth = 35;
+    constexpr int minHeight = 12;
+    constexpr int maxHeight = 25;
 
     csptr::Write("\n   Enter room width: ");
-    roomSize.width = ValidationCheck(25, 35);
+    roomSize.width = ValidationCheck(minWidth, maxWidth);
 
     csptr::Write("\n   Enter room height: ");
-    roomSize.height = ValidationCheck(12, 25);
+    roomSize.height = ValidationCheck(minHeight, maxHeight);
 
     return roomSize;
 }
@@ -122,20 +127,37 @@ void Game::PlayExitAnimation() const
 void Game::DrawGameEndText() const
 {
     // Set the text compared to the room size in the middle of the room.
-    SetCursorPos(0, 0);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 6, "     CONGRATULATIONS!", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 5, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 4, "  NOW YOU WILL ENTER THE", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 3, "         UNKNOWN.", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 2, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5) - 1, "", Color::LightYellow);
-    csptr::WriteLineAt((room->GetWidth() * 0.5) - 12, (room->GetHeight() * 0.5), "Press any key to continue.", Color::White);
+    const double width = room->GetWidth();
+    const double height = room->GetHeight();
+    
+    constexpr int startPos = 0;
+    constexpr double half = 0.5;
+    constexpr double textIdent = 12;
+    
+    const double left = (width * half) - textIdent;
+    const double top1 = (height * half) - 6;
+    const double top2 = (height * half) - 5;
+    const double top3 = (height * half) - 4;
+    const double top4 = (height * half) - 3;
+    const double top5 = (height * half) - 2;
+    const double top6 = (height * half) - 1;
+    const double top7 = (height * half);
+    
+    SetCursorPos(startPos, startPos);
+    csptr::WriteLineAt(left, top1, "     CONGRATULATIONS!", Color::LightYellow);
+    csptr::WriteLineAt(left, top2, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
+    csptr::WriteLineAt(left, top3, "  NOW YOU WILL ENTER THE", Color::LightYellow);
+    csptr::WriteLineAt(left, top4, "         UNKNOWN.", Color::LightYellow);
+    csptr::WriteLineAt(left, top5, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
+    csptr::WriteLineAt(left, top6, "", Color::LightYellow);
+    csptr::WriteLineAt(left, top7, "Press any key to continue.", Color::White);
+    
     (void)_getch(); //Explicitly ignore return value
 }
 
 void Game::DrawWinScreen() const
 {
-    app.StartOutro();
+    app->StartOutro();
 }
 
 bool Game::IsPlayerOnExit() const

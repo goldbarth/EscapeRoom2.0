@@ -5,7 +5,6 @@
 #ifndef ESCAPEROOM2_0_ROOM_H
 #define ESCAPEROOM2_0_ROOM_H
 
-
 #include <vector>
 
 class Room
@@ -16,7 +15,7 @@ public:
     int GetWidth() const { return width;}
     int GetHeight() const { return height;}
 
-    void Initialize(const int& width, const int& height);
+    void Initialize(const int& roomWidth, const int& roomHeight);
 
 private:
     int width = 0;
@@ -25,7 +24,7 @@ private:
     // Using a 2d vector to represent the room. Instead of a 2d array.
     std::vector<std::vector<int>> room;
 
-    void SetRoomSize(const int& width, const int& height);
+    void SetRoomSize(const int& roomWidth, const int& roomHeight);
     void DrawRoom() const;
 };
 

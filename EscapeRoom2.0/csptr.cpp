@@ -103,14 +103,14 @@ void csptr::SetConsoleCursorPos(const double& left, const double& top)
 /// Set it to false will hide the blinking bar/underscore.
 /// Src: https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
 /// </summary>
-void csptr::ShowConsoleCursor(const bool& showFlag)
+void csptr::ShowConsoleCursor(const bool& showCursor)
 {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
     CONSOLE_CURSOR_INFO cursorInfo;
 
     GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = showFlag;
+    cursorInfo.bVisible = showCursor;
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 

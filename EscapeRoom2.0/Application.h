@@ -5,7 +5,6 @@
 #ifndef ESCAPEROOM2_0_APPLICATION_H
 #define ESCAPEROOM2_0_APPLICATION_H
 
-
 #include <memory>
 #include "Game.h"
 
@@ -13,10 +12,18 @@ class Game;
 
 enum class GameState
 {
-    MainMenu,
-    Game,
-    Tutorial,
-    Exit,
+    MAIN_MENU,
+    GAME,
+    TUTORIAL,
+    EXIT,
+};
+
+enum class MenuType
+{
+    MAIN_MENU,
+    TUTORIAL,
+    OUTRO,
+    EXIT
 };
 
 class Application
@@ -33,13 +40,8 @@ private:
     std::unique_ptr<Game> game;
     GameState gameState;
 
-    [[noreturn]] void GameLoop();
-
-    void StartMainMenu();
-    void StartGame() const;
-    void StartTutorial();
-    void ExitApplication();
+    [[noreturn]] void StateLoop();
+    void InitializeState(MenuType menuType);
 };
-
 
 #endif //ESCAPEROOM2_0_APPLICATION_H

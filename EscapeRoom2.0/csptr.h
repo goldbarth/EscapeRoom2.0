@@ -7,7 +7,7 @@
 
 #include <string>
 
-enum class Color : int
+enum class Color
 {
     Black = 30,
     Red = 31,
@@ -67,7 +67,7 @@ public:
 
     static void SetConsoleColor(const Color& consoleColor);
 
-    static void ShowConsoleCursor(const bool& showFlag);
+    static void ShowConsoleCursor(const bool& showCursor);
 
     static void ClearScreen();
 };
