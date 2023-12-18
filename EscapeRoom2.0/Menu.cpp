@@ -19,25 +19,19 @@ constexpr char CANCEL_KEY = 'n';
 void Menu::InitializeMainMenu() const
 {
     DrawTitleScreen();
-    std::vector<std::string> options = {"Start Game", "Exit Application", "Rules"};
-    constexpr int initialLine = 16; // Initial line where the options are displayed, depending on the screen size.
-    GameOptions(TITLE, options, initialLine);
+    MainMenuOptions();
 }
 
 void Menu::InitializeOutro() const
 {
     DrawOutroScreen();
-    std::vector<std::string> options = {"Main Menu", "Exit Application"};
-    constexpr int initialLine = 18;
-    GameOptions(DEFAULT, options, initialLine);
+    DefaultOptions();
 }
 
 void Menu::InitializeTutorial() const
 {
     DrawTutorial();
-    std::vector<std::string> options = {"Main Menu", "Exit Application"};
-    constexpr int initialLine = 18;
-    GameOptions(DEFAULT, options, initialLine);
+    DefaultOptions();
 }
 
 void Menu::InitializeExit() const
@@ -115,14 +109,28 @@ void Menu::DrawTutorial()
     csptr::WriteLine("");
 }
 
+void Menu::MainMenuOptions() const
+{
+    std::vector<std::string> options = {"Start Game", "Exit Application", "Rules"};
+    constexpr int initialLine = 16; // Initial line where the options are displayed, depending on the screen size.
+    GameOptions(TITLE, options, initialLine);
+}
+
+void Menu::DefaultOptions() const
+{
+    std::vector<std::string> options = {"Main Menu", "Exit Application"};
+    constexpr int initialLine = 18;
+    GameOptions(DEFAULT, options, initialLine);
+}
+
 void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine) const
 {
     const int numOptions = static_cast<int>(options.size());
     int currentLine = initialLine;
     int currentOption = 0;
-    bool hasChosen = false;
+    bool hasSelected = false;
 
-    while (!hasChosen)
+    while (!hasSelected)
     {
         int startPos = 0;
         // Clear only the part of the console where the options are displayed
@@ -138,10 +146,8 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         // Draw menu options with highlighting
         for (int i = 0; i < numOptions; ++i)
         {
-            // Set cursor position to the beginning of the line
             csptr::SetConsoleCursorPos(startPos, currentLine);
-
-            // Set background color to yellow if the option is selected
+            
             if (i == currentOption)
             {
                 csptr::SetConsoleColor(Color::BgDarkGray);
@@ -158,12 +164,10 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         }
 
         char key = static_cast<char>(_getch());
-
-        // If enter was pressed then the user has chosen an option
         constexpr int keyCodeEnter = 13;
         if (key == keyCodeEnter)
         {
-            hasChosen = true;
+            hasSelected = true;
             switch (currentOption)
             {
                 case 0:

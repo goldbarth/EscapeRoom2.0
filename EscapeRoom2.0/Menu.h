@@ -15,9 +15,11 @@ public:
     explicit Menu(Application* app) : app(app) {}
     ~Menu();
 
+    void MainMenuOptions() const;
     void InitializeMainMenu() const;
     void InitializeTutorial() const;
     void InitializeOutro() const;
+    void DefaultOptions() const;
     void InitializeExit() const;
 
 private:
