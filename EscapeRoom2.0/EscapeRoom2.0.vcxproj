@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="csptr.cpp" />
+    <ClCompile Include="cwtr.cpp" />
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Key.cpp" />
@@ -166,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="csptr.h" />
+    <ClInclude Include="cwtr.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Key.h" />

@@ -8,10 +8,10 @@
 #include <ctime>
 
 #include "Player.h"
-#include "csptr.h"
+#include "cwtr.h"
 
 Player::Player(Game& game, Room& room, Key& key) : game(&game), room(&room),
-        key(&key), keyIsCollected(false), xPos(0), yPos(0)
+                                                   key(&key), keyIsCollected(false), xPos(0), yPos(0)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
@@ -105,7 +105,7 @@ void Player::GetRandomStartPos()
 
 void Player::SetPos(const char& symbol) const
 {
-    csptr::WriteAt(xPos, yPos, symbol, Color::LightGreen);
+    cwtr::WriteAt(xPos, yPos, symbol, Color::LightGreen);
 }
 
 

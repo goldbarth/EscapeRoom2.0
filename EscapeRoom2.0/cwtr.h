@@ -2,6 +2,9 @@
 // Created by goldbarth on 10.09.2023.
 //
 
+// A custom console class to write text and manipulate the console.
+// cwtr stands for "Console Writer".
+
 #ifndef ESCAPEROOM2_0_CSPTR_H
 #define ESCAPEROOM2_0_CSPTR_H
 
@@ -45,7 +48,7 @@ enum class Color
     BgReset = 49
 };
 
-class csptr
+class cwtr
 {
 public:
     static void Write(const char& letter);

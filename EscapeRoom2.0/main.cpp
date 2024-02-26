@@ -3,11 +3,11 @@
 //
 
 #include "Application.h"
-#include "csptr.h"
+#include "cwtr.h"
 
 int main()
 {
-    csptr::ShowConsoleCursor(false);
+    cwtr::ShowConsoleCursor(false);
     Application app;
     app.Run();
 }

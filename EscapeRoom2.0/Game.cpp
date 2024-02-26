@@ -6,7 +6,7 @@
 #include <iostream>
 #include <conio.h>
 
-#include "csptr.h"
+#include "cwtr.h"
 #include "Game.h"
 
 // Reference to the Application class is important to close the game loop.
@@ -31,15 +31,15 @@ void Game::Start()
 
 void Game::DrawPromptCommand()
 {
-    csptr::ClearScreen();
-    csptr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
-    csptr::WriteLine("\n\n\n   Enter the room size you want to play in.");
-    csptr::WriteLine("\n       Width: 25 - 35 | Height. 12 - 25");
+    cwtr::ClearScreen();
+    cwtr::WriteLine("\n\n        ******** ESCAPE ROOM ********");
+    cwtr::WriteLine("\n\n\n   Enter the room size you want to play in.");
+    cwtr::WriteLine("\n       Width: 25 - 35 | Height. 12 - 25");
 }
 
 void Game::InitializeObjects(const RoomSize& roomSize)
 {
-    csptr::ClearScreen();
+    cwtr::ClearScreen();
     room->Initialize(roomSize.width, roomSize.height);
     key->Initialize(charType.key);
     exit->Initialize(false);
@@ -56,10 +56,10 @@ RoomSize Game::EvaluateRoomSize()
     constexpr int minHeight = 12;
     constexpr int maxHeight = 25;
 
-    csptr::Write("\n   Enter room width: ");
+    cwtr::Write("\n   Enter room width: ");
     roomSize.width = ValidationCheck(minWidth, maxWidth);
 
-    csptr::Write("\n   Enter room height: ");
+    cwtr::Write("\n   Enter room height: ");
     roomSize.height = ValidationCheck(minHeight, maxHeight);
 
     return roomSize;
@@ -112,7 +112,7 @@ int Game::ValidationCheck(const int& min, const int& max)
 {
     int value;
     while(!(std::cin >> value) || value < min || value > max)
-        csptr::Write("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
+        cwtr::Write("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
 
     return value;
 }
@@ -121,7 +121,7 @@ void Game::PlayExitAnimation() const
 {
     // ...@
     std::string result = "..." + std::string(1, charType.player);
-    csptr::WriteAt(player->GetXPos(), player->GetYPos(), result, Color::LightGreen);
+    cwtr::WriteAt(player->GetXPos(), player->GetYPos(), result, Color::LightGreen);
 }
 
 void Game::DrawGameEndText() const
@@ -144,13 +144,13 @@ void Game::DrawGameEndText() const
     const double top7 = (height * half);
     
     SetCursorPos(startPos, startPos);
-    csptr::WriteLineAt(left, top1, "     CONGRATULATIONS!", Color::LightYellow);
-    csptr::WriteLineAt(left, top2, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
-    csptr::WriteLineAt(left, top3, "  NOW YOU WILL ENTER THE", Color::LightYellow);
-    csptr::WriteLineAt(left, top4, "         UNKNOWN.", Color::LightYellow);
-    csptr::WriteLineAt(left, top5, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
-    csptr::WriteLineAt(left, top6, "", Color::LightYellow);
-    csptr::WriteLineAt(left, top7, "Press any key to continue.", Color::White);
+    cwtr::WriteLineAt(left, top1, "     CONGRATULATIONS!", Color::LightYellow);
+    cwtr::WriteLineAt(left, top2, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
+    cwtr::WriteLineAt(left, top3, "  NOW YOU WILL ENTER THE", Color::LightYellow);
+    cwtr::WriteLineAt(left, top4, "         UNKNOWN.", Color::LightYellow);
+    cwtr::WriteLineAt(left, top5, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
+    cwtr::WriteLineAt(left, top6, "", Color::LightYellow);
+    cwtr::WriteLineAt(left, top7, "Press any key to continue.", Color::White);
     
     (void)_getch(); //Explicitly ignore return value
 }

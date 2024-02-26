@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "csptr.h"
+#include "cwtr.h"
 #include "Room.h"
 
 Room::Room() = default;
@@ -32,14 +32,14 @@ void Room::DrawRoom() const
             constexpr char floor = ' ';
             if (y == -1 || x == -1 || y == height || x == width)
             {
-                csptr::Write(floor, Color::BgDarkGray);
+                cwtr::Write(floor, Color::BgDarkGray);
             }
             else
             {
                 int current = room[x][y];
                 if (current == 0)
                 {
-                    csptr::Write(floor, Color::BgReset);
+                    cwtr::Write(floor, Color::BgReset);
                 }
             }
         }

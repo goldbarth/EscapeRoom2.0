@@ -4,7 +4,7 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "csptr.h"
+#include "cwtr.h"
 #include "Game.h"
 #include "Exit.h"
 
@@ -29,7 +29,7 @@ void Exit::Initialize(const bool& open)
 void Exit::DrawExit(const bool& open) const
 {
     Game::CharType charType;
-    csptr::WriteAt(xPos, yPos, charType.floor,open ? Color::BgReset : Color::BgGray);
+    cwtr::WriteAt(xPos, yPos, charType.floor,open ? Color::BgReset : Color::BgGray);
 }
 
 void Exit::SetRandomPosition()
