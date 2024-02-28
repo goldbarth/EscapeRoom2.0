@@ -8,35 +8,30 @@
 #include "Game.h"
 #include "Exit.h"
 
-Exit::Exit(Room& room) : room(&room)
+Exit::Exit(Room& room) : pRoom(&room)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-Exit::~Exit()
-= default;
-
-/// <summary>
-/// Handles the initialization of the exit.
-/// Set the argument to draw the exit open or closed.
-/// </summary>
-void Exit::Initialize(const bool& open)
+void Exit::Initialize(const char& object)
 {
     SetRandomPosition();
-    DrawExit(open);
+    DrawExit(object);
 }
 
 void Exit::DrawExit(const bool& open) const
 {
-    Game::CharType charType;
+    constexpr Game::CharType charType;
     cwtr::WriteAt(xPos, yPos, charType.floor,open ? Color::BgReset : Color::BgGray);
 }
 
 void Exit::SetRandomPosition()
 {
-    xPos = room->GetWidth() + 1;
-    yPos = rand() % (room->GetHeight() - 1) + 2;
+    xPos = pRoom->GetWidth() + 1;
+    yPos = rand() % (pRoom->GetHeight() - 1) + 2;
 }
+
+
 
 
 

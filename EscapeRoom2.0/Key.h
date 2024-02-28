@@ -6,29 +6,24 @@
 #define ESCAPEROOM2_0_KEY_H
 
 
+#include <memory>
+#include "IObject.h"
 #include "Room.h"
 
 class Room;
 
-class Key
+class Key : public IObject
 {
 public:
     explicit Key(Room& room);
-    ~Key();
 
-    int GetXPos() const { return xPos; }
-    int GetYPos() const { return yPos; }
-
-    void Initialize(const char& key);
+    void Initialize(const char& object) override;
 
 private:
-    std::unique_ptr<Room> room;
+    std::unique_ptr<Room> pRoom;
 
-    int xPos = 0;
-    int yPos = 0;
-
+    void SetRandomPosition() override;
     void DrawKey(const char& key) const;
-    void SetRandomPosition();
 };
 
 #endif //ESCAPEROOM2_0_KEY_H

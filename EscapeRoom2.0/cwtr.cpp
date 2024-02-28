@@ -6,6 +6,16 @@
 #include <iostream>
 #include "cwtr.h"
 
+void cwtr::Read(std::string& text)
+{
+    std::cin >> text;
+}
+
+void cwtr::Read(int& text)
+{
+    std::cin >> text;
+}
+
 void cwtr::Write(const std::string &text)
 {
     std::cout << text;
@@ -24,12 +34,12 @@ void cwtr::Write(const char& letter, const Color& textColor)
 
 void cwtr::WriteLine(const std::string& text)
 {
-    std::cout << text << std::endl;
+    std::cout << text << '\n';
 }
 
 void cwtr::WriteLine(const char& letter)
 {
-    std::cout << letter << std::endl;
+    std::cout << letter << '\n';
 }
 
 /// <summary>

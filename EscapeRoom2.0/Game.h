@@ -30,6 +30,7 @@ class Game
 public:
     explicit Game(Application& app);
     ~Game();
+    
 
     void Start();
 
@@ -45,19 +46,23 @@ public:
     };
 
 private:
-    std::unique_ptr<Room> room;
-    std::unique_ptr<Key> key;
-    std::unique_ptr<Exit> exit;
-    std::unique_ptr<Player> player;
+    std::unique_ptr<Room> pRoom;
+    std::unique_ptr<Key> pKey;
+    std::unique_ptr<Exit> pExit;
+    std::unique_ptr<Player> pPlayer;
 
-    Application* app;
+    std::unique_ptr<Application> app;
+    //Application* app;
     CharType charType;
 
     bool gameIsRunning = true;
     bool isExitOpen = false;
 
+    
+    void SetGameStartConditions();
+    RoomSize CreateRoom();
+    RoomSize EvaluateRoomSize();
     void InitializeObjects(const RoomSize& roomSize);
-
     void GameLoop();
     void OpenExit();
     void DrawWinScreen() const;
@@ -69,9 +74,6 @@ private:
     bool HasPlayerKeyCollected() const;
 
     static void DrawPromptCommand();
-
-    static RoomSize EvaluateRoomSize();
-
     static int ValidationCheck(const int &min, const int &max);
 };
 

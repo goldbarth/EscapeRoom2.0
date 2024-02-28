@@ -51,6 +51,9 @@ enum class Color
 class cwtr
 {
 public:
+    static void Read(std::string& text);
+    static void Read(int& text);
+
     static void Write(const char& letter);
     static void Write(const std::string& text);
     static void Write(const char &letter, const Color &textColor);

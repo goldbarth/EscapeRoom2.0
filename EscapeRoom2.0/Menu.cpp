@@ -179,8 +179,8 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
                 case 2:
                     app->SetState(GameState::TUTORIAL);
                     break;
-                default:
-                    std::cerr << "Invalid input. Something went wrong at GameOptions." << '\n';
+            default:
+                    cwtr::WriteLine("Invalid input. Something went wrong at GameOptions.");
                     break;
             }
         }
@@ -210,7 +210,7 @@ void Menu::ExitOptions() const
             app->SetState(GameState::MAIN_MENU);
             break;
         default:
-            std::cerr << "Invalid input. Something went wrong at Exit Options." << '\n';
+            cwtr::WriteLine("Invalid input. Something went wrong at ExitOptions.");
             break;
     }
 }
@@ -249,8 +249,7 @@ char Menu::GetInputOptions()
     std::shuffle(std::begin(farewell), std::end(farewell), std::mt19937(std::random_device()()));
     for (const auto & i : farewell) // Foreach loop
     {
-        // Actually the numbers 13 and 37 are not random, but they are the best numbers. you know (*wink NERD).
-        for (int j = 13; j < 37; ++j)
+        for (int j = 0; j < 3; ++j)
         {
             // Range from 0 to 79 columns and 0 to 23 rows
             const int k = rand() % 80;

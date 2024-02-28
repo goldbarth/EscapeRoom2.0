@@ -10,18 +10,17 @@
 #include "Player.h"
 #include "cwtr.h"
 
-Player::Player(Game& game, Room& room, Key& key) : game(&game), room(&room),
-                                                   key(&key), keyIsCollected(false), xPos(0), yPos(0)
+Player::Player(Game& game, Room& room, Key& key) : pGame(&game), pRoom(&room), pKey(&key), keyIsCollected(false)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Player::Initialize(const char& player)
+void Player::Initialize(const char& object)
 {
     do
     {
-        GetRandomStartPos();
-        SetPos(player);
+        SetRandomPosition();
+        SetPos(object);
     } while (IsThisPosKeyPos());
 }
 
@@ -32,30 +31,29 @@ void Player::Move(const char& player)
     if(valid)
     {
         constexpr Game::CharType charType;
+        constexpr int minPos = 1;
+
+        // Clear the previous position
         UpdatePos(xPos, yPos, charType.floor);
 
         const char inputKey = static_cast<char>(_getch()); // read the key
         switch (inputKey)
         {
             case UP:
-                if (yPos > 1) yPos--;
+                if (yPos > minPos) yPos--;
                 else PlayStopSound();
                 break;
             case DOWN:
-                if (yPos < room->GetHeight()) yPos++;
+                if (yPos < pRoom->GetHeight()) yPos++;
                 else PlayStopSound();
                 break;
             case LEFT:
-                if (xPos > 1) xPos--;
+                if (xPos > minPos) xPos--;
                 else PlayStopSound();
                 break;
             case RIGHT:
-                if (xPos < room->GetWidth()) xPos++;
+                if (xPos < pRoom->GetWidth()) xPos++;
                 else PlayStopSound();
-                break;
-            default:
-                // Prevent printing any other letter/symbol next to the player char if pressed
-                std::cout << charType.floor;
                 break;
         }
 
@@ -71,7 +69,7 @@ void Player::UpdatePos(const int& x, const int& y, const char& symbol) const
 
 bool Player::IsNotAtRightWall(const int& x, const int& y) const
 {
-    return (x != room->GetWidth() + 1 || y == 0 || game->IsPlayerOnExit());
+    return (x != pRoom->GetWidth() + 1 || y == 0 || pGame->IsPlayerOnExit());
 }
 
 void Player::PlayStopSound()
@@ -86,7 +84,7 @@ bool Player::IsNewPosWall(const int& x, const int& y)
 
 bool Player::IsThisPosKeyPos() const
 {
-    return xPos == key->GetXPos() && yPos == key->GetYPos();
+    return xPos == pKey->GetXPos() && yPos == pKey->GetYPos();
 }
 
 bool Player::HasKey()
@@ -97,15 +95,15 @@ bool Player::HasKey()
     return keyIsCollected;
 }
 
-void Player::GetRandomStartPos()
-{
-    xPos = rand() % (room->GetWidth() - 1) + 1;
-    yPos = rand() % (room->GetHeight() - 1) + 1;
-}
-
 void Player::SetPos(const char& symbol) const
 {
     cwtr::WriteAt(xPos, yPos, symbol, Color::LightGreen);
+}
+
+void Player::SetRandomPosition()
+{
+    xPos = std::rand() % (pRoom->GetWidth() - 1) + 1;
+    yPos = std::rand() % (pRoom->GetHeight() - 1) + 1;
 }
 
 

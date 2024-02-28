@@ -2,31 +2,42 @@
 // Created by goldbarth on 07.09.2023.
 //
 
+#define NOMINMAX
 #include <Windows.h>
 #include <iostream>
+#include <limits>
 #include <conio.h>
 
 #include "cwtr.h"
 #include "Game.h"
 
 // Reference to the Application class is important to close the game loop.
-Game::Game(Application& app) : room(std::make_unique<Room>()), key(std::make_unique<Key>(*room)),
-                    exit(std::make_unique<Exit>(*room)), player(std::make_unique<Player>(*this, *room, *key)), app(&app),
-                    charType(CharType())    
-{ }
+Game::Game(Application& app) : pRoom(std::make_unique<Room>()), pKey(std::make_unique<Key>(*pRoom)),
+                    pExit(std::make_unique<Exit>(*pRoom)), pPlayer(std::make_unique<Player>(*this, *pRoom, *pKey)), app(&app),
+                    charType(CharType())
+{
+}
 
 Game::~Game()
 = default;
 
-void Game::Start()
+void Game::SetGameStartConditions()
 {
     gameIsRunning = true;
     isExitOpen = false;
-    player->SetKeyIsCollected(false);
+    pPlayer->SetKeyIsCollected(false);
+}
 
+RoomSize Game::CreateRoom()
+{
     DrawPromptCommand();
-    auto roomSize = EvaluateRoomSize();
-    InitializeObjects(roomSize);
+    return EvaluateRoomSize();
+}
+
+void Game::Start()
+{
+    SetGameStartConditions();
+    InitializeObjects(CreateRoom());
 }
 
 void Game::DrawPromptCommand()
@@ -40,10 +51,10 @@ void Game::DrawPromptCommand()
 void Game::InitializeObjects(const RoomSize& roomSize)
 {
     cwtr::ClearScreen();
-    room->Initialize(roomSize.width, roomSize.height);
-    key->Initialize(charType.key);
-    exit->Initialize(false);
-    player->Initialize(charType.player);
+    pRoom->Initialize(roomSize.width, roomSize.height);
+    pKey->Initialize(charType.key);
+    pExit->Initialize(false);
+    pPlayer->Initialize(charType.player);
 
     GameLoop();
 }
@@ -69,7 +80,7 @@ void Game::GameLoop()
 {
     while (gameIsRunning)
     {
-        player->Move(charType.player);
+        pPlayer->Move(charType.player);
         CheckIfExitOpens();
         CheckIfPlayerEntersExit();
     }
@@ -86,7 +97,7 @@ void Game::OpenExit()
         Beep(1000, 100);
 
     isExitOpen = true;
-    exit->DrawExit(isExitOpen);
+    pExit->DrawExit(isExitOpen);
 }
 
 void Game::CheckIfPlayerEntersExit()
@@ -111,24 +122,33 @@ void Game::CheckIfPlayerEntersExit()
 int Game::ValidationCheck(const int& min, const int& max)
 {
     int value;
-    while(!(std::cin >> value) || value < min || value > max)
-        cwtr::Write("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
-
+    while (true) {
+        cwtr::Write("   ");
+        cwtr::Read(value);
+        if (std::cin.fail() || value < min || value > max) {
+            std::cin.clear(); // Clear error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard the input buffer
+            cwtr::WriteLine("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
+        }
+        else {
+            break; // Valid input, exit the loop
+        }
+    }
     return value;
 }
 
 void Game::PlayExitAnimation() const
 {
     // ...@
-    std::string result = "..." + std::string(1, charType.player);
-    cwtr::WriteAt(player->GetXPos(), player->GetYPos(), result, Color::LightGreen);
+    const std::string result = "..." + std::string(1, charType.player);
+    cwtr::WriteAt(pPlayer->GetXPos(), pPlayer->GetYPos(), result, Color::LightGreen);
 }
 
 void Game::DrawGameEndText() const
 {
-    // Set the text compared to the room size in the middle of the room.
-    const double width = room->GetWidth();
-    const double height = room->GetHeight();
+    // Set the text compared to the upRoom size in the middle of the upRoom.
+    const double width = pRoom->GetWidth();
+    const double height = pRoom->GetHeight();
     
     constexpr int startPos = 0;
     constexpr double half = 0.5;
@@ -162,12 +182,12 @@ void Game::DrawWinScreen() const
 
 bool Game::IsPlayerOnExit() const
 {
-    return (player->GetXPos() + 1 == exit->GetXPos() && player->GetYPos() == exit->GetYPos());
+    return (pPlayer->GetXPos() + 1 == pExit->GetXPos() && pPlayer->GetYPos() == pExit->GetYPos());
 }
 
 bool Game::HasPlayerKeyCollected() const
 {
-    return player->HasKey();
+    return pPlayer->HasKey();
 }
 
 

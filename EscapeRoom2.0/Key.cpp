@@ -2,39 +2,32 @@
 // Created by goldbarth on 07.09.2023.
 //
 
-#include <Windows.h>
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include "Key.h"
 
-Key::Key(Room& room) : room(&room)
+#include "cwtr.h"
+
+Key::Key(Room& room) : pRoom(&room)
 {
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-Key::~Key()
-= default;
-
-void Key::Initialize(const char& key)
+void Key::Initialize(const char& object)
 {
     SetRandomPosition();
-    DrawKey(key);
+    DrawKey(object);
 }
 
 void Key::DrawKey(const char& key) const
 {
-    std::cout << "\x1B[33m"; // Set text color to dark yellow
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),
-                             { static_cast<SHORT>(xPos), static_cast<SHORT>(yPos) }); // Set cursor position using SetConsoleCursorPos
-    std::cout << key;
-    std::cout << "\x1B[0m"; // Reset text color
+    cwtr::WriteAt(xPos, yPos, key, Color::Yellow);
 }
 
 void Key::SetRandomPosition()
 {
-    xPos = std::rand() % (room->GetWidth() - 1) + 1;
-    yPos = std::rand() % (room->GetHeight() - 1) + 1;
+    xPos = std::rand() % (pRoom->GetWidth() - 1) + 1;
+    yPos = std::rand() % (pRoom->GetHeight() - 1) + 1;
 }
 

@@ -6,31 +6,22 @@
 #define ESCAPEROOM2_0_EXIT_H
 
 
-#include "Room.h"
+#include "IObject.h"
 
 class Room;
 
-class Exit
+class Exit : public IObject
 {
 public:
-    explicit Exit(Room& room);
-    ~Exit();
-
+    Exit(Room& room);
     
-    int GetXPos() const { return xPos; }
-    
-    int GetYPos() const { return yPos; }
-
-    void Initialize(const bool& open);
+    void Initialize(const char& object) override;
     void DrawExit(const bool& open) const;
 
 private:
-    std::unique_ptr<Room> room;
-
-    int xPos = 0;
-    int yPos = 0;
-
-    void SetRandomPosition();
+    std::unique_ptr<Room> pRoom;
+    
+    void SetRandomPosition() override;
 };
 
 #endif //ESCAPEROOM2_0_EXIT_H

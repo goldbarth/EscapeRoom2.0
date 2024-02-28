@@ -21,7 +21,7 @@ private:
     int width = 0;
     int height = 0;
 
-    // Using a 2d vector to represent the room. Instead of a 2d array.
+    // Using a 2d vector to represent the upRoom. Instead of a 2d array.
     std::vector<std::vector<int>> room;
 
     void SetRoomSize(const int& roomWidth, const int& roomHeight);

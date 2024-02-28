@@ -42,7 +42,8 @@ Application::~Application()
 void Application::InitializeState(const MenuType menuType)
 {
     const Menu menu(this);
-    switch (menuType) {
+    switch (menuType)
+    {
     case MenuType::MAIN_MENU:
         menu.InitializeMainMenu();
         break;
