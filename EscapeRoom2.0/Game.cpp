@@ -10,13 +10,13 @@
 
 #include "cwtr.h"
 #include "Game.h"
+#include "Defines.h"
 
 // Reference to the Application class is important to close the game loop.
 Game::Game(Application& app) : pRoom(std::make_unique<Room>()), pKey(std::make_unique<Key>(*pRoom)),
                     pExit(std::make_unique<Exit>(*pRoom)), pPlayer(std::make_unique<Player>(*this, *pRoom, *pKey)), app(&app),
                     charType(CharType())
-{
-}
+{}
 
 Game::~Game()
 = default;
@@ -62,16 +62,13 @@ void Game::InitializeObjects(const RoomSize& roomSize)
 RoomSize Game::EvaluateRoomSize()
 {
     RoomSize roomSize;
-    constexpr int minWidth = 25;
-    constexpr int maxWidth = 35;
-    constexpr int minHeight = 12;
-    constexpr int maxHeight = 25;
 
-    cwtr::Write("\n   Enter room width: ");
-    roomSize.width = ValidationCheck(minWidth, maxWidth);
+    const std::string prompt = "\n   Enter room width: ";
 
-    cwtr::Write("\n   Enter room height: ");
-    roomSize.height = ValidationCheck(minHeight, maxHeight);
+    roomSize.width = ValidationCheck(prompt, MIN_WIDTH, MAX_WIDTH);
+
+    const std::string prompt2 = "\n   Enter room height: ";
+    roomSize.height = ValidationCheck(prompt2, MIN_HEIGHT, MAX_HEIGHT);
 
     return roomSize;
 }
@@ -115,22 +112,34 @@ void Game::CheckIfPlayerEntersExit()
         gameIsRunning = false;
     }
 }
-
 /// <summary>
-/// Insert a value between min and max.
-/// </summary>
-int Game::ValidationCheck(const int& min, const int& max)
+/// Fancy way to validate input. No? Lol.
+/// <summary>
+int Game::ValidationCheck(const std::string& command, const int& min, const int& max)
 {
     int value;
-    while (true) {
-        cwtr::Write("   ");
+    bool isFirstTry = true;
+
+    while (true)
+    {
+        cwtr::Write("   " + command);
         cwtr::Read(value);
-        if (std::cin.fail() || value < min || value > max) {
+
+        if (std::cin.fail() || value < min || value > max)
+        {
             std::cin.clear(); // Clear error flags
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard the input buffer
-            cwtr::WriteLine("\n   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
+
+            if (!isFirstTry) {
+                // Clear the current line and the previous line
+                cwtr::Write("\033[A\033[2K\033[A\033[2K\033[A\033[2K");
+            }
+            
+            cwtr::WriteLine("   Invalid input. Please enter a value between " + std::to_string(min) + " and " + std::to_string(max) + ".");
+            isFirstTry = false;
         }
-        else {
+        else
+        {
             break; // Valid input, exit the loop
         }
     }
@@ -146,31 +155,29 @@ void Game::PlayExitAnimation() const
 
 void Game::DrawGameEndText() const
 {
-    // Set the text compared to the upRoom size in the middle of the upRoom.
     const double width = pRoom->GetWidth();
     const double height = pRoom->GetHeight();
     
-    constexpr int startPos = 0;
     constexpr double half = 0.5;
     constexpr double textIdent = 12;
-    
     const double left = (width * half) - textIdent;
-    const double top1 = (height * half) - 6;
-    const double top2 = (height * half) - 5;
-    const double top3 = (height * half) - 4;
-    const double top4 = (height * half) - 3;
-    const double top5 = (height * half) - 2;
-    const double top6 = (height * half) - 1;
-    const double top7 = (height * half);
-    
-    SetCursorPos(startPos, startPos);
-    cwtr::WriteLineAt(left, top1, "     CONGRATULATIONS!", Color::LightYellow);
-    cwtr::WriteLineAt(left, top2, " YOU ESCAPED THE DARKNESS.", Color::LightYellow);
-    cwtr::WriteLineAt(left, top3, "  NOW YOU WILL ENTER THE", Color::LightYellow);
-    cwtr::WriteLineAt(left, top4, "         UNKNOWN.", Color::LightYellow);
-    cwtr::WriteLineAt(left, top5, "  GOOD LUCK, ADVENTURER.", Color::LightYellow);
-    cwtr::WriteLineAt(left, top6, "", Color::LightYellow);
-    cwtr::WriteLineAt(left, top7, "Press any key to continue.", Color::White);
+
+    const std::vector<std::pair<std::string, Color>> lines =
+    {
+        {"     CONGRATULATIONS!", Color::LightYellow},
+        {" YOU ESCAPED THE DARKNESS.", Color::LightYellow},
+        {"  NOW YOU WILL ENTER THE", Color::LightYellow},
+        {"         UNKNOWN.", Color::LightYellow},
+        {"  GOOD LUCK, ADVENTURER.", Color::LightYellow},
+        {"", Color::LightYellow},
+        {"Press any key to continue.", Color::White}
+    };
+
+    SetCursorPos(0, 0);
+    for (size_t i = 0; i < lines.size(); ++i) {
+        double top = (height * half) - 6 + i;
+        cwtr::WriteLineAt(left, top, lines[i].first, lines[i].second);
+    }
     
     (void)_getch(); //Explicitly ignore return value
 }

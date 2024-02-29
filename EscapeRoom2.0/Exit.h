@@ -13,7 +13,8 @@ class Room;
 class Exit : public IObject
 {
 public:
-    Exit(Room& room);
+    explicit Exit(Room& room);
+    virtual ~Exit() = default;
     
     void Initialize(const char& object) override;
     void DrawExit(const bool& open) const;

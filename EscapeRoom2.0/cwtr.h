@@ -5,8 +5,8 @@
 // A custom console class to write text and manipulate the console.
 // cwtr stands for "Console Writer".
 
-#ifndef ESCAPEROOM2_0_CSPTR_H
-#define ESCAPEROOM2_0_CSPTR_H
+#ifndef ESCAPEROOM2_0_CWTR_H
+#define ESCAPEROOM2_0_CWTR_H
 
 #include <string>
 
@@ -52,7 +52,8 @@ class cwtr
 {
 public:
     static void Read(std::string& text);
-    static void Read(int& text);
+    static void Read(char& letter);
+    static void Read(int& number);
 
     static void Write(const char& letter);
     static void Write(const std::string& text);
@@ -79,4 +80,4 @@ public:
 };
 
 
-#endif //ESCAPEROOM2_0_CSPTR_H
+#endif //ESCAPEROOM2_0_CWTR_H

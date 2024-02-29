@@ -11,9 +11,14 @@ void cwtr::Read(std::string& text)
     std::cin >> text;
 }
 
-void cwtr::Read(int& text)
+void cwtr::Read(char& letter)
 {
-    std::cin >> text;
+    std::cin >> letter;
+}
+
+void cwtr::Read(int& number)
+{
+    std::cin >> number;
 }
 
 void cwtr::Write(const std::string &text)

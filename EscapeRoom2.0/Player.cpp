@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <ctime>
 
+#include "Defines.h"
 #include "Player.h"
 #include "cwtr.h"
 
@@ -39,19 +40,19 @@ void Player::Move(const char& player)
         const char inputKey = static_cast<char>(_getch()); // read the key
         switch (inputKey)
         {
-            case UP:
+            case KEY_CODE_UP:
                 if (yPos > minPos) yPos--;
                 else PlayStopSound();
                 break;
-            case DOWN:
+            case KEY_CODE_DOWN:
                 if (yPos < pRoom->GetHeight()) yPos++;
                 else PlayStopSound();
                 break;
-            case LEFT:
+            case KEY_CODE_LEFT:
                 if (xPos > minPos) xPos--;
                 else PlayStopSound();
                 break;
-            case RIGHT:
+            case KEY_CODE_RIGHT:
                 if (xPos < pRoom->GetWidth()) xPos++;
                 else PlayStopSound();
                 break;

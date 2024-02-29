@@ -6,6 +6,7 @@
 #define ESCAPEROOM2_0_GAME_H
 
 #include <memory>
+#include <string>
 
 #include "Application.h"
 #include "Player.h"
@@ -30,11 +31,6 @@ class Game
 public:
     explicit Game(Application& app);
     ~Game();
-    
-
-    void Start();
-
-    bool IsPlayerOnExit() const;
 
     struct CharType
     {
@@ -45,19 +41,15 @@ public:
         char player = '@';
     };
 
+    void Start();
+    bool IsPlayerOnExit() const;
+
 private:
     std::unique_ptr<Room> pRoom;
     std::unique_ptr<Key> pKey;
     std::unique_ptr<Exit> pExit;
     std::unique_ptr<Player> pPlayer;
-
     std::unique_ptr<Application> app;
-    //Application* app;
-    CharType charType;
-
-    bool gameIsRunning = true;
-    bool isExitOpen = false;
-
     
     void SetGameStartConditions();
     RoomSize CreateRoom();
@@ -74,7 +66,12 @@ private:
     bool HasPlayerKeyCollected() const;
 
     static void DrawPromptCommand();
-    static int ValidationCheck(const int &min, const int &max);
+    static int ValidationCheck(const std::string& command, const int& min, const int& max);
+
+    CharType charType;
+    
+    bool gameIsRunning = true;
+    bool isExitOpen = false;
 };
 
 

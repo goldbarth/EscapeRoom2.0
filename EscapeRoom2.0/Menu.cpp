@@ -8,29 +8,24 @@
 #include <conio.h>
 #include <random>
 
+#include "Defines.h"
 #include "Menu.h"
-
-Menu::~Menu()
-= default;
-
-constexpr char CONFIRM_KEY = 'y';
-constexpr char CANCEL_KEY = 'n';
 
 void Menu::InitializeMainMenu() const
 {
-    DrawTitleScreen();
+    DrawTitleBanner();
     MainMenuOptions();
 }
 
 void Menu::InitializeOutro() const
 {
-    DrawOutroScreen();
+    DrawEscapeBanner();
     DefaultOptions();
 }
 
 void Menu::InitializeTutorial() const
 {
-    DrawTutorial();
+    DisplayRules();
     DefaultOptions();
 }
 
@@ -46,81 +41,106 @@ void Menu::DrawExitOptions()
     cwtr::WriteLine("(y/n)");
 }
 
-void Menu::DrawTitleScreen()
+void Menu::DrawTitleBanner()
 {
+    const std::vector<std::string> lines =
+    {
+        "",
+        "   ###### ************************** * *  ",
+        "   ######                           *     ",
+        "   ##     #### #### #### #### ####     *  ",
+        "   ####   #    #    ## # ## # #           ",
+        "   ##     #### #    #### #### ###    *  * ",
+        "   ######    # #    ## # ##   #           ",
+        "   ###### #### #### ## # ##   ####     *  ",
+        "                                    *     ",
+        "   ############  =======================  ",
+        "   #          #   ######                  ",
+        "   #  @       ?   ##   # #### #### ##   # ",
+        "   #          #   #####  #  # #  # ### ## ",
+        "   #     $    #   ##   # #  # #  # ## # # ",
+        "   #          #   ##   # #  # #  # ##   # ",
+        "   ############   ##   # #### #### ##   # ",
+        "",
+        ""
+    };
+
     cwtr::ClearScreen();
-    cwtr::WriteLine("");
-    cwtr::WriteLine("   ###### ************************** * *  ");
-    cwtr::WriteLine("   ######                           *     ");
-    cwtr::WriteLine("   ##     #### #### #### #### ####     *  ");
-    cwtr::WriteLine("   ####   #    #    ## # ## # #           ");
-    cwtr::WriteLine("   ##     #### #    #### #### ###    *  * ");
-    cwtr::WriteLine("   ######    # #    ## # ##   #           ");
-    cwtr::WriteLine("   ###### #### #### ## # ##   ####     *  ");
-    cwtr::WriteLine("                                    *     ");
-    cwtr::WriteLine("   ############  =======================  ");
-    cwtr::WriteLine("   #          #   ######                  ");
-    cwtr::WriteLine("   #  @       ?   ##   # #### #### ##   # ");
-    cwtr::WriteLine("   #          #   #####  #  # #  # ### ## ");
-    cwtr::WriteLine("   #     $    #   ##   # #  # #  # ## # # ");
-    cwtr::WriteLine("   #          #   ##   # #  # #  # ##   # ");
-    cwtr::WriteLine("   ############   ##   # #### #### ##   # ");
-    cwtr::WriteLine("");
-    cwtr::WriteLine("");
+
+    for (const auto& line : lines)
+    {
+        cwtr::WriteLine(line);
+    }
 }
 
-void Menu::DrawOutroScreen()
+void Menu::DrawEscapeBanner()
 {
+    const std::vector<std::string> lines =
+    {
+        "",
+        "   ###### ******YOU ESCAPED THE***** * *  ",
+        "   ######                           *     ",
+        "   ##     #### #### #### #### ####     *  ",
+        "   ####   #    #    ## # ## # #           ",
+        "   ##     #### #    #### #### ###    *  * ",
+        "   ######    # #    ## # ##   #           ",
+        "   ###### #### #### ## # ##   ####     *  ",
+        "                                    *     ",
+        "   ############  =======================  ",
+        "   #          #   ######                  ",
+        "   #         ...@ ##   # #### #### ##   # ",
+        "   #          #   #####  #  # #  # ### ## ",
+        "   #          #   ##   # #  # #  # ## # # ",
+        "   #          #   ##   # #  # #  # ##   # ",
+        "   ############   ##   # #### #### ##   # ",
+        "",
+        ""
+    };
+
     cwtr::ClearScreen();
-    cwtr::WriteLine("");
-    cwtr::WriteLine("   ###### ******YOU ESCAPED THE***** * *  ");
-    cwtr::WriteLine("   ######                           *     ");
-    cwtr::WriteLine("   ##     #### #### #### #### ####     *  ");
-    cwtr::WriteLine("   ####   #    #    ## # ## # #           ");
-    cwtr::WriteLine("   ##     #### #    #### #### ###    *  * ");
-    cwtr::WriteLine("   ######    # #    ## # ##   #           ");
-    cwtr::WriteLine("   ###### #### #### ## # ##   ####     *  ");
-    cwtr::WriteLine("                                    *     ");
-    cwtr::WriteLine("   ############  =======================  ");
-    cwtr::WriteLine("   #          #   ######                  ");
-    cwtr::WriteLine("   #         ...@ ##   # #### #### ##   # ");
-    cwtr::WriteLine("   #          #   #####  #  # #  # ### ## ");
-    cwtr::WriteLine("   #          #   ##   # #  # #  # ## # # ");
-    cwtr::WriteLine("   #          #   ##   # #  # #  # ##   # ");
-    cwtr::WriteLine("   ############   ##   # #### #### ##   # ");
-    cwtr::WriteLine("");
-    cwtr::WriteLine("");
+
+    for (const auto& line : lines)
+    {
+        cwtr::WriteLine(line);
+    }
 }
 
-void Menu::DrawTutorial()
+void Menu::DisplayRules()
 {
+    const std::vector<std::string> lines =
+    {
+        "\n\n                   ******** ESCAPE ROOM ********",
+        "                    --------------------------",
+        "                    ********* RULES *********",
+        "\n     At the start, the size of the Escape Room is determined.",
+        "                  Height and width are set by input.",
+        "\n    The character moves by pressing the arrow keys: ^, v, <, >.",
+        "\n   The player is dropped at a random position in the Escape Room.",
+        "     The room has a locked door that can be opened with a key.",
+        "            The key can be found somewhere in the room.",
+        "           When collected, the door opens automatically.",
+        "\n\n       The game is won when the player goes through the door.",
+        ""
+    };
+
     cwtr::ClearScreen();
-    cwtr::WriteLine("\n\n                   ******** ESCAPE ROOM ********");
-    cwtr::WriteLine("                    --------------------------");
-    cwtr::WriteLine("                    ********* RULES *********");
-    cwtr::WriteLine("\n     At the start, the size of the Escape Room is determined.");
-    cwtr::WriteLine("                  Height and width are set by input.");
-    cwtr::WriteLine("\n    The character moves by pressing the arrow keys: ^, v, <, >.");
-    cwtr::WriteLine("\n   The player is dropped at a random position in the Escape Room.");
-    cwtr::WriteLine("     The room has a locked door that can be opened with a key.");
-    cwtr::WriteLine("            The key can be found somewhere in the room.");
-    cwtr::WriteLine("           When collected, the door opens automatically.");
-    cwtr::WriteLine("\n\n       The game is won when the player goes through the door.");
-    cwtr::WriteLine("");
+
+    for (const auto& line : lines)
+    {
+        cwtr::WriteLine(line);
+    }
 }
 
 void Menu::MainMenuOptions() const
 {
     std::vector<std::string> options = {"Start Game", "Exit Application", "Rules"};
-    constexpr int initialLine = 16; // Initial line where the options are displayed, depending on the screen size.
-    GameOptions(TITLE, options, initialLine);
+    GameOptions(TITLE, options, INITIAL_LINE_MAIN);
 }
 
 void Menu::DefaultOptions() const
 {
     std::vector<std::string> options = {"Main Menu", "Exit Application"};
-    constexpr int initialLine = 18;
-    GameOptions(DEFAULT, options, initialLine);
+    GameOptions(DEFAULT, options, INITIAL_LINE_OPTIONS);
 }
 
 void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>& options, const int& initialLine) const
@@ -136,10 +156,9 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         // Clear only the part of the console where the options are displayed
         for (int i = 0; i < numOptions + 1; ++i)
         {
-            constexpr int charCount = 80; // Number of characters in a line for padding
             constexpr char spaceChar = ' ';
             cwtr::SetConsoleCursorPos(startPos, currentLine);
-            cwtr::Write(std::string(charCount, spaceChar));
+            cwtr::Write(std::string(PADDING_CHARS, spaceChar));
             currentLine++;
         }
 
@@ -164,8 +183,7 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
         }
 
         char key = static_cast<char>(_getch());
-        constexpr int keyCodeEnter = 13;
-        if (key == keyCodeEnter)
+        if (key == KEY_CODE_ENTER)
         {
             hasSelected = true;
             switch (currentOption)
@@ -184,14 +202,11 @@ void Menu::GameOptions(const ScreenType& screen, const std::vector<std::string>&
                     break;
             }
         }
-
-        constexpr int keyUp = 72;
-        constexpr int keyDown = 80;
         
-        if (key == keyUp && currentOption > 0)
+        if (key == KEY_CODE_UP && currentOption > 0)
             currentOption--;
 
-        if (key == keyDown && currentOption < numOptions - 1)
+        if (key == KEY_CODE_DOWN && currentOption < numOptions - 1)
             currentOption++;
 
         currentLine = initialLine;
@@ -222,8 +237,7 @@ char Menu::GetInputOptions()
 
     do
     {
-        std::cin >> inputKey;
-
+        cwtr::Read(inputKey);
         valid = inputKey == CONFIRM_KEY || inputKey == CANCEL_KEY;
         if(!valid) cwtr::WriteLine("Invalid input. Please try again.\n");
         else cwtr::WriteLine("");

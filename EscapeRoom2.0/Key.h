@@ -16,6 +16,7 @@ class Key : public IObject
 {
 public:
     explicit Key(Room& room);
+    virtual ~Key() = default;
 
     void Initialize(const char& object) override;
 

@@ -10,7 +10,8 @@
 class Room
 {
 public:
-    Room();
+    explicit Room() = default;
+    ~Room() = default;
 
     int GetWidth() const { return width;}
     int GetHeight() const { return height;}
@@ -18,14 +19,13 @@ public:
     void Initialize(const int& roomWidth, const int& roomHeight);
 
 private:
-    int width = 0;
-    int height = 0;
-
-    // Using a 2d vector to represent the upRoom. Instead of a 2d array.
-    std::vector<std::vector<int>> room;
-
     void SetRoomSize(const int& roomWidth, const int& roomHeight);
     void DrawRoom() const;
+
+    std::vector<std::vector<int>> room;
+    
+    int width = 0;
+    int height = 0;
 };
 
 #endif //ESCAPEROOM2_0_ROOM_H

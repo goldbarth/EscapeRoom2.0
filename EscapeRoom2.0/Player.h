@@ -17,6 +17,7 @@ class Player : public IObject
 {
 public:
     Player(Game& game, Room& room, Key& key);
+    virtual ~Player() = default;
     
     void Initialize(const char& object) override;
     
@@ -40,11 +41,6 @@ private:
     bool IsThisPosKeyPos() const;
     bool IsNotAtRightWall(const int& x, const int& y) const;
     static bool IsNewPosWall(const int& x, const int& y);
-
-    constexpr static int UP = 72;
-    constexpr static int DOWN = 80;
-    constexpr static int LEFT = 75;
-    constexpr static int RIGHT = 77;
     
     bool keyIsCollected;
 };

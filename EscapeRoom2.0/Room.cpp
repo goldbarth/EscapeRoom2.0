@@ -7,8 +7,6 @@
 #include "cwtr.h"
 #include "Room.h"
 
-Room::Room() = default;
-
 void Room::Initialize(const int& roomWidth, const int& roomHeight)
 {
     SetRoomSize(roomWidth, roomHeight);
@@ -44,6 +42,6 @@ void Room::DrawRoom() const
             }
         }
 
-        std::cout << std::endl;
+        std::cout << '\n';
     }
 }

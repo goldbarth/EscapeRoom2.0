@@ -8,7 +8,6 @@ protected:
     
 public:
     virtual void Initialize(const char& object) = 0;
-    
     virtual void SetRandomPosition() = 0;
     
     virtual int GetXPos() const { return xPos; }
