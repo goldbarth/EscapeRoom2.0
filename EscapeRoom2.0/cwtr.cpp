@@ -33,7 +33,7 @@ void cwtr::Write(const char& letter)
 
 void cwtr::Write(const char& letter, const Color& textColor)
 {
-    int colorCode = static_cast<int>(textColor);
+    const int colorCode = static_cast<int>(textColor);
     std::cout << "\x1B[" << colorCode << "m"<< letter << "\x1B[0m";
 }
 
